@@ -17,18 +17,20 @@ export const Route = createFileRoute("/panel/tenants")({
 
 function TenantsPage() {
   const queryClient = useQueryClient();
+  const publishTenant = useServerFn(setTenantPublished);
   const { data: tenants = [], isPending } = useQuery({
     queryKey: ["panel", "tenants"],
     queryFn: adminRepository.tenants,
   });
 
   const publish = useMutation({
-    mutationFn: ({ id, value }: { id: string; value: boolean }) => adminRepository.setTenantPublished(id, value),
+    mutationFn: ({ id, value }: { id: string; value: boolean }) =>
+      publishTenant({ data: { tenantId: id, isPublished: value } }),
     onSuccess: async () => {
       toast.success("Yayın durumu güncellendi");
       await queryClient.invalidateQueries({ queryKey: ["panel", "tenants"] });
     },
-    onError: () => toast.error("Güncelleme başarısız"),
+    onError: (error: Error) => toast.error(error.message || "Güncelleme başarısız"),
   });
 
   return (
