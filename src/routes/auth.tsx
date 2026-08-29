@@ -11,7 +11,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/modules/auth";
 
+/** Only same-origin panel paths may be used as a post-login destination. */
+function safeRedirect(value: unknown): string {
+  const path = typeof value === "string" ? value : "";
+  return path.startsWith("/") && !path.startsWith("//") ? path : "/panel";
+}
+
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>) => ({ redirect: safeRedirect(search["redirect"]) }),
   head: () => ({
     meta: [
       { title: "Panel girişi · QR Sofra" },
@@ -27,12 +34,14 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { redirect } = Route.useSearch();
   const { user, loading } = useAuth();
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) void navigate({ to: "/panel" });
-  }, [loading, user, navigate]);
+    if (!loading && user) void navigate({ to: redirect, replace: true });
+  }, [loading, user, navigate, redirect]);
+
 
   async function signIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
