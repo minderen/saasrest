@@ -182,7 +182,13 @@ export const adminResources = {
     ],
     fields: [
       localeField,
-      { name: "key", label: "Bölüm anahtarı", type: "text", required: true },
+      {
+        name: "key",
+        label: "Bölüm anahtarı",
+        type: "text",
+        required: true,
+        help: "Kullanılan anahtarlar: about, awards, specials, campaigns, posts, branches, contact",
+      },
       { name: "eyebrow", label: "Üst etiket", type: "text" },
       { name: "title", label: "Başlık", type: "text" },
       { name: "subtitle", label: "Alt başlık", type: "text" },
@@ -314,7 +320,13 @@ export const adminResources = {
       boolColumn("is_active", "Aktif"),
     ],
     fields: [
-      { name: "key", label: "Bölüm anahtarı", type: "text", required: true },
+      {
+        name: "key",
+        label: "Bölüm anahtarı",
+        type: "text",
+        required: true,
+        help: "Kullanılan anahtarlar: about, awards, specials, campaigns, posts, branches, contact",
+      },
       { name: "eyebrow", label: "Üst etiket", type: "text" },
       { name: "title", label: "Başlık", type: "text" },
       { name: "subtitle", label: "Alt başlık", type: "text" },
@@ -363,7 +375,7 @@ export const adminResources = {
     table: "slides",
     tenantScoped: true,
     select:
-      "id, image_url, eyebrow, title, description, button_label, button_href, sort_order, is_active",
+      "id, image_url, eyebrow, title, description, button_label, button_href, button_target, sort_order, is_active",
     orderBy: "sort_order",
     columns: [
       { name: "title", label: "Başlık" },
@@ -378,6 +390,15 @@ export const adminResources = {
       { name: "description", label: "Açıklama", type: "textarea", full: true },
       { name: "button_label", label: "Buton metni", type: "text" },
       { name: "button_href", label: "Buton adresi", type: "text" },
+      {
+        name: "button_target",
+        label: "Buton hedefi",
+        type: "select",
+        options: [
+          { value: "_self", label: "Aynı pencere" },
+          { value: "_blank", label: "Yeni pencere" },
+        ],
+      },
       sortField,
       activeField,
     ],

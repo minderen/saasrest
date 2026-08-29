@@ -26,14 +26,16 @@ export const topbarHeaderFields: AdminField[] = [
     label: "Topbar (JSON)",
     type: "json",
     full: true,
-    help: 'Örnek: {"enabled": true, "message": "Ücretsiz teslimat", "href": "/kampanyalar"}',
+    help:
+      'İki satır, üç sütun: {"enabled": true, "rows": [{"is_active": true, "sort_order": 0, "columns": [{"align": "left", "items": [{"type": "text", "label": "Her gün 09:00-23:00", "sort_order": 0}]}, {"align": "center", "items": []}, {"align": "right", "items": [{"type": "language", "sort_order": 0}, {"type": "button", "label": "Rezervasyon", "href": "https://...", "target": "_blank", "variant": "default", "sort_order": 1}, {"type": "modal", "label": "Kurumsal", "modal_title": "Kurumsal", "modal_html": "<p>...</p>", "sort_order": 2}]}]}]}',
   },
   {
     name: "header_buttons",
     label: "Header butonları (JSON)",
     type: "json",
     full: true,
-    help: 'Örnek: [{"label": "Rezervasyon", "href": "/iletisim"}]',
+    help:
+      'En fazla iki buton: [{"label": "Rezervasyon", "href": "/#contact", "target": "_self", "variant": "default", "sort_order": 0}, {"label": "Kurumsal", "type": "modal", "modal_title": "Kurumsal", "modal_html": "<p>...</p>", "sort_order": 1}]',
   },
 ];
 
