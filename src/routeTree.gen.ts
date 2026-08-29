@@ -15,6 +15,7 @@ import { Route as PanelRouteImport } from './routes/panel'
 import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
 import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelAddonsRouteImport } from './routes/panel.addons'
 import { Route as PanelAgentRouteImport } from './routes/panel.agent'
 import { Route as PanelAgentsRouteImport } from './routes/panel.agents'
 import { Route as PanelAnnouncementsRouteImport } from './routes/panel.announcements'
@@ -80,6 +81,11 @@ const TenantMenuRoute = TenantMenuRouteImport.update({
 const PanelIndexRoute = PanelIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelAddonsRoute = PanelAddonsRouteImport.update({
+  id: '/addons',
+  path: '/addons',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelAgentRoute = PanelAgentRouteImport.update({
@@ -268,6 +274,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/addons': typeof PanelAddonsRoute
   '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
@@ -311,6 +318,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/addons': typeof PanelAddonsRoute
   '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/addons': typeof PanelAddonsRoute
   '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
@@ -402,6 +411,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/addons'
     | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
@@ -445,6 +455,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/$tenant/menu'
+    | '/panel/addons'
     | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
@@ -489,6 +500,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/addons'
     | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
@@ -579,6 +591,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/panel/'
       preLoaderRoute: typeof PanelIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/addons': {
+      id: '/panel/addons'
+      path: '/addons'
+      fullPath: '/panel/addons'
+      preLoaderRoute: typeof PanelAddonsRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/agent': {
@@ -837,6 +856,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface PanelRouteChildren {
+  PanelAddonsRoute: typeof PanelAddonsRoute
   PanelAgentRoute: typeof PanelAgentRoute
   PanelAgentsRoute: typeof PanelAgentsRoute
   PanelAnnouncementsRoute: typeof PanelAnnouncementsRoute
@@ -877,6 +897,7 @@ interface PanelRouteChildren {
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelAddonsRoute: PanelAddonsRoute,
   PanelAgentRoute: PanelAgentRoute,
   PanelAgentsRoute: PanelAgentsRoute,
   PanelAnnouncementsRoute: PanelAnnouncementsRoute,
