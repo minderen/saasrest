@@ -20,6 +20,7 @@ import { Route as PanelAgentsRouteImport } from './routes/panel.agents'
 import { Route as PanelAnnouncementsRouteImport } from './routes/panel.announcements'
 import { Route as PanelAuditRouteImport } from './routes/panel.audit'
 import { Route as PanelBranchesRouteImport } from './routes/panel.branches'
+import { Route as PanelBrandRouteImport } from './routes/panel.brand'
 import { Route as PanelCampaignsRouteImport } from './routes/panel.campaigns'
 import { Route as PanelCategoriesRouteImport } from './routes/panel.categories'
 import { Route as PanelFaqsRouteImport } from './routes/panel.faqs'
@@ -102,6 +103,11 @@ const PanelAuditRoute = PanelAuditRouteImport.update({
 const PanelBranchesRoute = PanelBranchesRouteImport.update({
   id: '/branches',
   path: '/branches',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelBrandRoute = PanelBrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelCampaignsRoute = PanelCampaignsRouteImport.update({
@@ -255,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
   '/panel/branches': typeof PanelBranchesRoute
+  '/panel/brand': typeof PanelBrandRoute
   '/panel/campaigns': typeof PanelCampaignsRoute
   '/panel/categories': typeof PanelCategoriesRoute
   '/panel/faqs': typeof PanelFaqsRoute
@@ -295,6 +302,7 @@ export interface FileRoutesByTo {
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
   '/panel/branches': typeof PanelBranchesRoute
+  '/panel/brand': typeof PanelBrandRoute
   '/panel/campaigns': typeof PanelCampaignsRoute
   '/panel/categories': typeof PanelCategoriesRoute
   '/panel/faqs': typeof PanelFaqsRoute
@@ -337,6 +345,7 @@ export interface FileRoutesById {
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
   '/panel/branches': typeof PanelBranchesRoute
+  '/panel/brand': typeof PanelBrandRoute
   '/panel/campaigns': typeof PanelCampaignsRoute
   '/panel/categories': typeof PanelCategoriesRoute
   '/panel/faqs': typeof PanelFaqsRoute
@@ -380,6 +389,7 @@ export interface FileRouteTypes {
     | '/panel/announcements'
     | '/panel/audit'
     | '/panel/branches'
+    | '/panel/brand'
     | '/panel/campaigns'
     | '/panel/categories'
     | '/panel/faqs'
@@ -420,6 +430,7 @@ export interface FileRouteTypes {
     | '/panel/announcements'
     | '/panel/audit'
     | '/panel/branches'
+    | '/panel/brand'
     | '/panel/campaigns'
     | '/panel/categories'
     | '/panel/faqs'
@@ -461,6 +472,7 @@ export interface FileRouteTypes {
     | '/panel/announcements'
     | '/panel/audit'
     | '/panel/branches'
+    | '/panel/brand'
     | '/panel/campaigns'
     | '/panel/categories'
     | '/panel/faqs'
@@ -578,6 +590,13 @@ declare module '@tanstack/react-router' {
       path: '/branches'
       fullPath: '/panel/branches'
       preLoaderRoute: typeof PanelBranchesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/brand': {
+      id: '/panel/brand'
+      path: '/brand'
+      fullPath: '/panel/brand'
+      preLoaderRoute: typeof PanelBrandRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/campaigns': {
@@ -785,6 +804,7 @@ interface PanelRouteChildren {
   PanelAnnouncementsRoute: typeof PanelAnnouncementsRoute
   PanelAuditRoute: typeof PanelAuditRoute
   PanelBranchesRoute: typeof PanelBranchesRoute
+  PanelBrandRoute: typeof PanelBrandRoute
   PanelCampaignsRoute: typeof PanelCampaignsRoute
   PanelCategoriesRoute: typeof PanelCategoriesRoute
   PanelFaqsRoute: typeof PanelFaqsRoute
@@ -822,6 +842,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelAnnouncementsRoute: PanelAnnouncementsRoute,
   PanelAuditRoute: PanelAuditRoute,
   PanelBranchesRoute: PanelBranchesRoute,
+  PanelBrandRoute: PanelBrandRoute,
   PanelCampaignsRoute: PanelCampaignsRoute,
   PanelCategoriesRoute: PanelCategoriesRoute,
   PanelFaqsRoute: PanelFaqsRoute,
