@@ -107,7 +107,19 @@ export const adminRepository = {
   },
 
   async counts() {
-    const tables = ["tenants", "agents", "plans", "products", "menus", "orders", "leads"] as const;
+    const tables = [
+      "tenants",
+      "agents",
+      "profiles",
+      "plans",
+      "products",
+      "menus",
+      "branches",
+      "campaigns",
+      "posts",
+      "orders",
+      "leads",
+    ] as const;
     const results = await Promise.all(
       tables.map(async (table) => {
         const { count, error } = await supabase.from(table).select("id", { count: "exact", head: true });
