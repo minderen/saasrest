@@ -206,7 +206,7 @@ export function normalizeHeaderButtons(value: unknown): HeaderButton[] {
       : [];
 
   return list
-    .map((raw, index) => {
+    .map((raw, index): HeaderButton | null => {
       const record = asRecord(raw);
       const label = text(record["label"]) ?? text(record["text"]);
       if (!label || bool(record["is_active"]) === false) return null;
