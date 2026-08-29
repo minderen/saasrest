@@ -55,7 +55,15 @@ const SOURCES: Record<
     tenantScoped: true,
     orderBy: "sort_order",
   },
+  plugins: {
+    table: "plugins",
+    select: "id, name",
+    value: "id",
+    label: "name",
+    orderBy: "name",
+  },
 };
+
 
 function toOptions(source: SourceKey, rows: ResourceRow[]): AdminFieldOption[] {
   const spec = SOURCES[source];
