@@ -6,27 +6,9 @@ import { Lightbox } from "@/components/shared/lightbox";
 import { Button } from "@/components/ui/button";
 import { formatDate, isOngoing } from "@/lib/format";
 
-type Section = {
-  id: string;
-  key: string;
-  eyebrow: string | null;
-  title: string | null;
-  subtitle: string | null;
-  body: string | null;
-  config: unknown;
-};
+import type { Award, Branch, Campaign, Post, Section } from "./types";
 
-export type Branch = {
-  id: string;
-  name: string;
-  cover_image_url: string | null;
-  address: string | null;
-  city: string | null;
-  phone: string | null;
-  whatsapp: string | null;
-  directions_url: string | null;
-  opening_hours: unknown;
-};
+export type { Branch } from "./types";
 
 export function AboutSection({ section }: { section?: Section | undefined }) {
   if (!section) return null;
@@ -68,7 +50,7 @@ export function AwardsSection({
   awards,
 }: {
   section?: Section | undefined;
-  awards: Array<{ id: string; title: string; description: string | null; image_url: string | null; detail_html: string | null }>;
+  awards: Award[];
 }) {
   const [active, setActive] = useState<(typeof awards)[number] | null>(null);
   if (!section || awards.length === 0) return null;
@@ -175,16 +157,7 @@ export function CampaignsSection({
   campaigns,
 }: {
   section?: Section | undefined;
-  campaigns: Array<{
-    id: string;
-    title: string;
-    excerpt: string | null;
-    description: string | null;
-    image_url: string | null;
-    badge: string | null;
-    starts_at: string | null;
-    ends_at: string | null;
-  }>;
+  campaigns: Campaign[];
 }) {
   const [active, setActive] = useState<(typeof campaigns)[number] | null>(null);
   if (!section || campaigns.length === 0) return null;
@@ -251,16 +224,7 @@ export function PostsSection({
   onOpen,
 }: {
   section?: Section | undefined;
-  posts: Array<{
-    id: string;
-    title: string;
-    excerpt: string | null;
-    content: string | null;
-    image_url: string | null;
-    badge: string | null;
-    published_at: string | null;
-    view_count: number;
-  }>;
+  posts: Post[];
   onOpen: (postId: string) => void;
 }) {
   const [active, setActive] = useState<(typeof posts)[number] | null>(null);
