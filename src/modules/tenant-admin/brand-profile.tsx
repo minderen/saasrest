@@ -32,7 +32,7 @@ export function BrandProfileForm() {
   });
   const { data: languages = [] } = useQuery({
     queryKey: ["panel", "languages", "active"],
-    queryFn: languagesRepository.active,
+    queryFn: languagesRepository.listActive,
   });
   const { data: siteThemes = [] } = useQuery({
     queryKey: ["panel", "themes", "restaurant"],
