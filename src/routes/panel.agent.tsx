@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { TenantManager } from "@/modules/agent";
+import { AgentDashboard } from "@/modules/agent";
 import { RequireAccess } from "@/modules/auth";
 
-export const Route = createFileRoute("/panel/tenants")({
+export const Route = createFileRoute("/panel/agent")({
   component: () => (
     <RequireAccess scope="staff">
-      <TenantManager />
+      <AgentDashboard />
     </RequireAccess>
   ),
 });

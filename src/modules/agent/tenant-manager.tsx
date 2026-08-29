@@ -15,7 +15,9 @@ import { formatDate } from "@/lib/format";
 import { agentRepository } from "@/repositories/agent.repository";
 import { tenantService } from "@/services/tenant.service";
 
-import { AgentSelect, useAgentScope } from "./use-agent-scope";
+import { AgentSelect } from "./agent-select";
+import { useAgentScope } from "./use-agent-scope";
+
 
 type TenantRow = Awaited<ReturnType<typeof agentRepository.tenants>>[number];
 
