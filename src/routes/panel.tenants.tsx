@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { RequireAccess } from "@/modules/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ExternalLink } from "lucide-react";
 import { toast } from "sonner";
@@ -10,7 +12,7 @@ import { adminRepository } from "@/repositories";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/tenants")({
-  component: TenantsPage,
+  component: GuardedPage,
 });
 
 function TenantsPage() {
@@ -94,5 +96,13 @@ function TenantsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+function GuardedPage() {
+  return (
+    <RequireAccess scope="staff">
+      <TenantsPage />
+    </RequireAccess>
   );
 }
