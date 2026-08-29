@@ -69,6 +69,7 @@ function itemType(raw: Record<string, unknown>): TopbarItemType {
   const declared = text(raw["type"]);
   if (declared === "language" || declared === "modal" || declared === "button" || declared === "link")
     return declared;
+  if (declared === "lang" || declared === "language_switcher") return "language";
   if (raw["modal_html"] || raw["modal"]) return "modal";
   if (raw["href"]) return "link";
   return "text";
@@ -178,7 +179,14 @@ export function normalizeTopbar(value: unknown): Topbar {
   const rows: TopbarRow[] = rawRows
     .map((rawRow, rowIndex) => {
       const row = asRecord(rawRow);
-      const rawColumns = Array.isArray(row["columns"]) ? (row["columns"] as unknown[]) : [];
+      // Supports both `columns: [...]` and the shorthand `{ left, center, right }`.
+      const rawColumns = Array.isArray(row["columns"])
+        ? (row["columns"] as unknown[])
+        : [
+            { align: "left", items: row["left"] ?? [] },
+            { align: "center", items: row["center"] ?? [] },
+            { align: "right", items: row["right"] ?? [] },
+          ];
       const columns = [0, 1, 2].map((columnIndex) =>
         toColumn(rawColumns[columnIndex], rowIndex, columnIndex),
       );
