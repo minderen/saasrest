@@ -26,26 +26,39 @@ const TenantScopeContext = createContext<TenantScopeValue | null>(null);
  * Central tenant selection for the admin panel. RLS decides which tenants are
  * returned, so a super admin sees all brands while others see only their own.
  */
-export function TenantScopeProvider({ children }: { children: ReactNode }) {
-  const [tenantId, setTenantId] = useState("");
+export function TenantScopeProvider({
+  children,
+  fixedTenantId,
+}: {
+  children: ReactNode;
+  /** Locks the scope to a single tenant (tenant detail pages) and hides the picker. */
+  fixedTenantId?: string;
+}) {
+  const [tenantId, setTenantId] = useState(fixedTenantId ?? "");
   const { data, isPending } = useQuery({
     queryKey: ["panel", "tenants"],
+    enabled: !fixedTenantId,
     queryFn: adminRepository.tenants,
   });
 
   const tenants = useMemo<TenantOption[]>(
-    () => (data ?? []).map((tenant) => ({ id: tenant.id, name: tenant.name })),
-    [data],
+    () => (fixedTenantId ? [] : (data ?? []).map((tenant) => ({ id: tenant.id, name: tenant.name }))),
+    [data, fixedTenantId],
   );
 
   useEffect(() => {
+    if (fixedTenantId) {
+      setTenantId(fixedTenantId);
+      return;
+    }
     if (!tenantId && tenants[0]) setTenantId(tenants[0].id);
-  }, [tenants, tenantId]);
+  }, [tenants, tenantId, fixedTenantId]);
 
   const value = useMemo<TenantScopeValue>(
-    () => ({ tenantId, setTenantId, tenants, loading: isPending }),
-    [tenantId, tenants, isPending],
+    () => ({ tenantId, setTenantId, tenants, loading: fixedTenantId ? false : isPending }),
+    [tenantId, tenants, isPending, fixedTenantId],
   );
+
 
   return <TenantScopeContext.Provider value={value}>{children}</TenantScopeContext.Provider>;
 }
