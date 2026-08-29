@@ -35,13 +35,13 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const { redirect } = Route.useSearch();
+  const { redirect: redirectTo = "/panel" } = Route.useSearch();
   const { user, loading } = useAuth();
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) void navigate({ to: redirect, replace: true });
-  }, [loading, user, navigate, redirect]);
+    if (!loading && user) void navigate({ to: redirectTo, replace: true });
+  }, [loading, user, navigate, redirectTo]);
 
 
   async function signIn(event: React.FormEvent<HTMLFormElement>) {
