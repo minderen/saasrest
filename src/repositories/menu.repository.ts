@@ -1,9 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
 
-import type { MenuItemKind } from "@/types";
-
-void (0 as unknown as MenuItemKind);
-
 export const menuRepository = {
   async categories(tenantId: string) {
     const { data, error } = await supabase
