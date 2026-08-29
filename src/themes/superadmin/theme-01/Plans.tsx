@@ -63,7 +63,7 @@ export function Plans({
   plans,
   onSelect,
 }: {
-  section?: LandingSection;
+  section?: LandingSection | undefined;
   plans: Plan[];
   onSelect: (slug: string) => void;
 }) {

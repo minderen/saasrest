@@ -59,7 +59,7 @@ export function WhatSection({ section }: { section?: LandingSection }) {
   );
 }
 
-export function Features({ section, features }: { section?: LandingSection; features: Feature[] }) {
+export function Features({ section, features }: { section?: LandingSection | undefined; features: Feature[] }) {
   const [active, setActive] = useState<Feature | null>(null);
   if (!section) return null;
 

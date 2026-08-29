@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/i18n";
 import type { LandingSection } from "@/repositories/landing";
 
-export function Hero({ section, demoSlug }: { section?: LandingSection; demoSlug: string }) {
+export function Hero({ section, demoSlug }: { section?: LandingSection | undefined; demoSlug: string }) {
   const t = useT();
   if (!section) return null;
   const config = section.config as { primaryCta?: string };

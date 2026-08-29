@@ -12,7 +12,7 @@ import { useT } from "@/lib/i18n";
 import { leadService } from "@/services/lead-service";
 import type { LandingSection } from "@/repositories/landing";
 
-export function Faq({ section, faqs }: { section?: LandingSection; faqs: Array<{ id: string; question: string; answer: string }> }) {
+export function Faq({ section, faqs }: { section?: LandingSection | undefined; faqs: Array<{ id: string; question: string; answer: string }> }) {
   if (!section) return null;
   return (
     <section className="section-y bg-surface/40" id="faq">
@@ -35,7 +35,7 @@ export function ContactSection({
   section,
   selectedPlan,
 }: {
-  section?: LandingSection;
+  section?: LandingSection | undefined;
   selectedPlan: string | null;
 }) {
   const t = useT();
