@@ -70,14 +70,16 @@ function PanelShell() {
             ))}
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-sm text-muted-foreground sm:inline">{user.email}</span>
+            <span className="hidden text-sm text-muted-foreground sm:inline">{user?.email}</span>
             <LanguageSwitcher />
             <Button
               variant="ghost"
               size="sm"
               onClick={async () => {
+                await queryClient.cancelQueries();
+                queryClient.clear();
                 await signOut();
-                void navigate({ to: "/auth" });
+                void navigate({ to: "/auth", replace: true });
               }}
             >
               <LogOut className="size-4" aria-hidden />
