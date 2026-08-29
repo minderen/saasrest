@@ -87,6 +87,35 @@ export function AwardsSection({
   );
 }
 
+/**
+ * Opening hours are tenant-authored JSON. Both shapes are supported:
+ * `{ "Pzt-Cum": "09:00 - 24:00" }` and `[{ d: "Pzt-Cum", h: "09:00 - 24:00" }]`.
+ */
+function formatOpeningHours(value: unknown): string {
+  const entryLabel = (entry: Record<string, unknown>) => {
+    const day = entry["d"] ?? entry["day"] ?? entry["days"] ?? entry["label"];
+    const hours =
+      entry["h"] ?? entry["hours"] ?? entry["time"] ??
+      (entry["open"] && entry["close"] ? `${String(entry["open"])} - ${String(entry["close"])}` : undefined);
+    if (day && hours) return `${String(day)}: ${String(hours)}`;
+    return String(hours ?? day ?? "");
+  };
+
+  const parts = Array.isArray(value)
+    ? value.map((item) =>
+        item && typeof item === "object" ? entryLabel(item as Record<string, unknown>) : String(item ?? ""),
+      )
+    : value && typeof value === "object"
+      ? Object.entries(value as Record<string, unknown>).map(([day, hours]) =>
+          hours && typeof hours === "object"
+            ? entryLabel({ d: day, ...(hours as Record<string, unknown>) })
+            : `${day}: ${String(hours ?? "")}`,
+        )
+      : [];
+
+  return parts.filter(Boolean).join(" · ");
+}
+
 export function BranchesSection({ section, branches }: { section?: Section | undefined; branches: Branch[] }) {
   if (!section || branches.length === 0) return null;
 
@@ -96,7 +125,7 @@ export function BranchesSection({ section, branches }: { section?: Section | und
         <SectionHeading eyebrow={section.eyebrow} title={section.title} subtitle={section.subtitle} />
         <ul className="grid gap-6 md:grid-cols-2">
           {branches.map((branch) => {
-            const hours = (branch.opening_hours ?? {}) as Record<string, string>;
+            const hours = formatOpeningHours(branch.opening_hours);
             return (
               <li key={branch.id} className="surface-card overflow-hidden">
                 {branch.cover_image_url ? (
@@ -116,12 +145,10 @@ export function BranchesSection({ section, branches }: { section?: Section | und
                     {branch.address}
                     {branch.city ? `, ${branch.city}` : ""}
                   </p>
-                  {Object.keys(hours).length ? (
+                  {hours ? (
                     <p className="flex items-start gap-2 text-sm text-muted-foreground">
                       <Clock className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
-                      {Object.entries(hours)
-                        .map(([day, value]) => `${day}: ${value}`)
-                        .join(" · ")}
+                      {hours}
                     </p>
                   ) : null}
                   <div className="mt-2 flex flex-wrap gap-2">
