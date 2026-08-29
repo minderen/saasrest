@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Eye, EyeOff, Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -34,6 +34,9 @@ export function ResourceSection({
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Row | null>(null);
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | "draft" | "published" | "archived">(
+    "all",
+  );
 
   const optionMap = useOptionSources(resource.fields, tenantId);
   const enabled = !resource.tenantScoped || Boolean(tenantId);
@@ -66,6 +69,17 @@ export function ResourceSection({
       toast.error(mutationError instanceof Error ? mutationError.message : "Kayıt başarısız"),
   });
 
+  const setStatus = useMutation({
+    mutationFn: (input: { id: unknown; status: "draft" | "published" | "archived" }) =>
+      resourceService.setStatus(resource, input.id, input.status),
+    onSuccess: async () => {
+      toast.success("Yayın durumu güncellendi");
+      await invalidate();
+    },
+    onError: (mutationError) =>
+      toast.error(mutationError instanceof Error ? mutationError.message : "Güncelleme başarısız"),
+  });
+
   const remove = useMutation({
     mutationFn: (id: unknown) => resourceService.remove(resource, id),
     onSuccess: async () => {
@@ -78,15 +92,19 @@ export function ResourceSection({
 
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
-    if (!term || !resource.searchColumns?.length) return rows;
-    return rows.filter((row) =>
+    let list = rows;
+    if (resource.publishable && statusFilter !== "all") {
+      list = list.filter((row) => String(row["status"] ?? "") === statusFilter);
+    }
+    if (!term || !resource.searchColumns?.length) return list;
+    return list.filter((row) =>
       resource.searchColumns!.some((column) =>
         String(row[column] ?? "")
           .toLowerCase()
           .includes(term),
       ),
     );
-  }, [rows, search, resource.searchColumns]);
+  }, [rows, search, statusFilter, resource.searchColumns, resource.publishable]);
 
   const Heading = embedded ? "h2" : "h1";
 
@@ -101,6 +119,27 @@ export function ResourceSection({
         </div>
         <div className="flex flex-wrap items-end gap-3">
           {resource.tenantScoped && !embedded ? <TenantScopeSelect /> : null}
+          {resource.publishable ? (
+            <div className="flex items-end gap-1" role="group" aria-label="Yayın durumu filtresi">
+              {(
+                [
+                  { value: "all", label: "Tümü" },
+                  { value: "draft", label: "Taslak" },
+                  { value: "published", label: "Yayında" },
+                  { value: "archived", label: "Arşiv" },
+                ] as const
+              ).map((option) => (
+                <Button
+                  key={option.value}
+                  size="sm"
+                  variant={statusFilter === option.value ? "secondary" : "ghost"}
+                  onClick={() => setStatusFilter(option.value)}
+                >
+                  {option.label}
+                </Button>
+              ))}
+            </div>
+          ) : null}
           {resource.searchColumns?.length ? (
             <Input
               value={search}
@@ -143,6 +182,26 @@ export function ResourceSection({
             : {
                 actions: (row) => (
                   <div className="flex justify-end gap-2">
+                    {resource.publishable ? (
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        disabled={setStatus.isPending}
+                        onClick={() =>
+                          setStatus.mutate({
+                            id: row[primaryKey],
+                            status: row["status"] === "published" ? "draft" : "published",
+                          })
+                        }
+                      >
+                        {row["status"] === "published" ? (
+                          <EyeOff className="size-4" aria-hidden />
+                        ) : (
+                          <Eye className="size-4" aria-hidden />
+                        )}
+                        {row["status"] === "published" ? "Taslağa al" : "Yayınla"}
+                      </Button>
+                    ) : null}
                     <Button
                       size="sm"
                       variant="secondary"
