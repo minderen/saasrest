@@ -37,12 +37,15 @@ import { Route as PanelPlansRouteImport } from './routes/panel.plans'
 import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
 import { Route as PanelPostsRouteImport } from './routes/panel.posts'
 import { Route as PanelRolesRouteImport } from './routes/panel.roles'
+import { Route as PanelSeoRouteImport } from './routes/panel.seo'
 import { Route as PanelSettingsRouteImport } from './routes/panel.settings'
 import { Route as PanelSubscriptionsRouteImport } from './routes/panel.subscriptions'
 import { Route as PanelTenantsRouteImport } from './routes/panel.tenants'
 import { Route as PanelThemesRouteImport } from './routes/panel.themes'
 import { Route as PanelTranslationsRouteImport } from './routes/panel.translations'
+import { Route as PanelUsageRouteImport } from './routes/panel.usage'
 import { Route as PanelUsersRouteImport } from './routes/panel.users'
+import { Route as PanelWebsiteRouteImport } from './routes/panel.website'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -184,6 +187,11 @@ const PanelRolesRoute = PanelRolesRouteImport.update({
   path: '/roles',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelSeoRoute = PanelSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelSettingsRoute = PanelSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -209,9 +217,19 @@ const PanelTranslationsRoute = PanelTranslationsRouteImport.update({
   path: '/translations',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelUsageRoute = PanelUsageRouteImport.update({
+  id: '/usage',
+  path: '/usage',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelUsersRoute = PanelUsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelWebsiteRoute = PanelWebsiteRouteImport.update({
+  id: '/website',
+  path: '/website',
   getParentRoute: () => PanelRoute,
 } as any)
 
@@ -242,12 +260,15 @@ export interface FileRoutesByFullPath {
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
   '/panel/roles': typeof PanelRolesRoute
+  '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
   '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
   '/panel/translations': typeof PanelTranslationsRoute
+  '/panel/usage': typeof PanelUsageRoute
   '/panel/users': typeof PanelUsersRoute
+  '/panel/website': typeof PanelWebsiteRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
 }
@@ -277,12 +298,15 @@ export interface FileRoutesByTo {
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
   '/panel/roles': typeof PanelRolesRoute
+  '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
   '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
   '/panel/translations': typeof PanelTranslationsRoute
+  '/panel/usage': typeof PanelUsageRoute
   '/panel/users': typeof PanelUsersRoute
+  '/panel/website': typeof PanelWebsiteRoute
   '/$tenant': typeof TenantIndexRoute
   '/panel': typeof PanelIndexRoute
 }
@@ -314,12 +338,15 @@ export interface FileRoutesById {
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
   '/panel/roles': typeof PanelRolesRoute
+  '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
   '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
   '/panel/translations': typeof PanelTranslationsRoute
+  '/panel/usage': typeof PanelUsageRoute
   '/panel/users': typeof PanelUsersRoute
+  '/panel/website': typeof PanelWebsiteRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
 }
@@ -352,12 +379,15 @@ export interface FileRouteTypes {
     | '/panel/plugins'
     | '/panel/posts'
     | '/panel/roles'
+    | '/panel/seo'
     | '/panel/settings'
     | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
     | '/panel/translations'
+    | '/panel/usage'
     | '/panel/users'
+    | '/panel/website'
     | '/$tenant/'
     | '/panel/'
   fileRoutesByTo: FileRoutesByTo
@@ -387,12 +417,15 @@ export interface FileRouteTypes {
     | '/panel/plugins'
     | '/panel/posts'
     | '/panel/roles'
+    | '/panel/seo'
     | '/panel/settings'
     | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
     | '/panel/translations'
+    | '/panel/usage'
     | '/panel/users'
+    | '/panel/website'
     | '/$tenant'
     | '/panel'
   id:
@@ -423,12 +456,15 @@ export interface FileRouteTypes {
     | '/panel/plugins'
     | '/panel/posts'
     | '/panel/roles'
+    | '/panel/seo'
     | '/panel/settings'
     | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
     | '/panel/translations'
+    | '/panel/usage'
     | '/panel/users'
+    | '/panel/website'
     | '/$tenant/'
     | '/panel/'
   fileRoutesById: FileRoutesById
@@ -639,6 +675,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelRolesRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/seo': {
+      id: '/panel/seo'
+      path: '/seo'
+      fullPath: '/panel/seo'
+      preLoaderRoute: typeof PanelSeoRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/settings': {
       id: '/panel/settings'
       path: '/settings'
@@ -674,11 +717,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelTranslationsRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/usage': {
+      id: '/panel/usage'
+      path: '/usage'
+      fullPath: '/panel/usage'
+      preLoaderRoute: typeof PanelUsageRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/users': {
       id: '/panel/users'
       path: '/users'
       fullPath: '/panel/users'
       preLoaderRoute: typeof PanelUsersRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/website': {
+      id: '/panel/website'
+      path: '/website'
+      fullPath: '/panel/website'
+      preLoaderRoute: typeof PanelWebsiteRouteImport
       parentRoute: typeof PanelRoute
     }
   }
@@ -707,12 +764,15 @@ interface PanelRouteChildren {
   PanelPluginsRoute: typeof PanelPluginsRoute
   PanelPostsRoute: typeof PanelPostsRoute
   PanelRolesRoute: typeof PanelRolesRoute
+  PanelSeoRoute: typeof PanelSeoRoute
   PanelSettingsRoute: typeof PanelSettingsRoute
   PanelSubscriptionsRoute: typeof PanelSubscriptionsRoute
   PanelTenantsRoute: typeof PanelTenantsRoute
   PanelThemesRoute: typeof PanelThemesRoute
   PanelTranslationsRoute: typeof PanelTranslationsRoute
+  PanelUsageRoute: typeof PanelUsageRoute
   PanelUsersRoute: typeof PanelUsersRoute
+  PanelWebsiteRoute: typeof PanelWebsiteRoute
   PanelIndexRoute: typeof PanelIndexRoute
 }
 
@@ -739,12 +799,15 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelPluginsRoute: PanelPluginsRoute,
   PanelPostsRoute: PanelPostsRoute,
   PanelRolesRoute: PanelRolesRoute,
+  PanelSeoRoute: PanelSeoRoute,
   PanelSettingsRoute: PanelSettingsRoute,
   PanelSubscriptionsRoute: PanelSubscriptionsRoute,
   PanelTenantsRoute: PanelTenantsRoute,
   PanelThemesRoute: PanelThemesRoute,
   PanelTranslationsRoute: PanelTranslationsRoute,
+  PanelUsageRoute: PanelUsageRoute,
   PanelUsersRoute: PanelUsersRoute,
+  PanelWebsiteRoute: PanelWebsiteRoute,
   PanelIndexRoute: PanelIndexRoute,
 }
 
