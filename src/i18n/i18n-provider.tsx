@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { languagesRepository, translationsRepository } from "@/repositories/i18n";
+import { languagesRepository, translationsRepository } from "@/repositories/i18n.repository";
 
 type Dictionary = Record<string, string>;
 

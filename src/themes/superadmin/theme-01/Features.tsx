@@ -14,7 +14,7 @@ import {
 
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Lightbox } from "@/components/shared/lightbox";
-import type { LandingSection } from "@/repositories/landing";
+import type { LandingSection } from "@/repositories/landing.repository";
 
 const ICONS: Record<string, LucideIcon> = {
   layers: Layers,

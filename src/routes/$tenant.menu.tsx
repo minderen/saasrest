@@ -3,8 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-import { menuRepository, tenantRepository } from "@/repositories/tenant";
-import { CartProvider } from "@/modules/cart/cart-context";
+import { menuRepository, tenantRepository } from "@/repositories";
+import { CartProvider } from "@/modules/cart";
 import { menuThemes, resolveTheme } from "@/themes/registry";
 import type { MenuThemeProps } from "@/themes/menu/theme-01/index";
 

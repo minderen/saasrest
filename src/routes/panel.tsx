@@ -15,7 +15,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/modules/auth";
 
 export const Route = createFileRoute("/panel")({
   ssr: false,

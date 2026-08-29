@@ -2,8 +2,8 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
-import { useT } from "@/lib/i18n";
-import type { LandingSection } from "@/repositories/landing";
+import { useT } from "@/i18n";
+import type { LandingSection } from "@/repositories/landing.repository";
 
 export function Hero({ section, demoSlug }: { section?: LandingSection | undefined; demoSlug: string }) {
   const t = useT();

@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { Switch } from "@/components/ui/switch";
-import { adminRepository } from "@/repositories/admin";
+import { adminRepository } from "@/repositories";
 import { formatMoney } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/plans")({

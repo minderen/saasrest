@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, QrCode, UtensilsCrossed } from "lucide-react
 
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { tenantRepository } from "@/repositories/tenant";
+import { tenantRepository } from "@/repositories";
 
 import { AboutSection, AwardsSection, BranchesSection, CampaignsSection, PostsSection, type Branch } from "./sections";
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { menuRepository } from "@/repositories/tenant";
+import { menuRepository } from "@/repositories";
 
 export const orderSchema = z.object({
   tenant_id: z.string().uuid(),

@@ -3,7 +3,7 @@ import type { Session, User } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
-import { adminRepository } from "@/repositories/admin";
+import { adminRepository } from "@/repositories";
 
 export type AppRole = "super_admin" | "agent" | "tenant_owner" | "tenant_staff";
 

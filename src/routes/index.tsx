@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQueries } from "@tanstack/react-query";
 
-import { landingRepository } from "@/repositories/landing";
-import { useI18n } from "@/lib/i18n";
+import { landingRepository } from "@/repositories/landing.repository";
+import { useI18n } from "@/i18n";
 import { landingThemes, resolveTheme } from "@/themes/registry";
 import type { LandingThemeProps } from "@/themes/superadmin/theme-01/index";
 

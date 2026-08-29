@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Lightbox } from "@/components/shared/lightbox";
-import { adminRepository, tenantContentRepository } from "@/repositories/admin";
+import { adminRepository, tenantContentRepository } from "@/repositories";
 import { formatMoney, slugify } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/menu")({

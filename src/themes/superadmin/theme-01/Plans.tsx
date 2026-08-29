@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatMoney } from "@/lib/format";
-import type { LandingSection } from "@/repositories/landing";
+import type { LandingSection } from "@/repositories/landing.repository";
 
 type Plan = {
   id: string;

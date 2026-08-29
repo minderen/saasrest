@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
-import { tenantRepository } from "@/repositories/tenant";
+import { tenantRepository } from "@/repositories";
 import { resolveTheme, websiteThemes } from "@/themes/registry";
 import type { RestaurantThemeProps } from "@/themes/restaurant/theme-01/index";
 

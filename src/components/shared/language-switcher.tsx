@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useI18n } from "@/lib/i18n";
+import { useI18n } from "@/i18n";
 
 export function LanguageSwitcher({ showLabel = false }: { showLabel?: boolean }) {
   const { locale, setLocale, languages } = useI18n();
