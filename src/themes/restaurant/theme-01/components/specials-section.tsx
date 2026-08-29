@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { formatCurrency } from "@/lib/format";
+import { formatMoney } from "@/lib/format";
 import type { Section, SpecialItem } from "../types";
 
 function badgeList(value: unknown): string[] {
@@ -66,7 +66,7 @@ export function SpecialsSection({
                   <p className="text-sm text-muted-foreground">{item.short_description}</p>
                 ) : null}
                 <p className="mt-1 text-lg font-semibold text-primary">
-                  {formatCurrency(item.price, item.currency)}
+                  {formatMoney(item.price, item.currency)}
                 </p>
               </div>
             </li>
