@@ -53,8 +53,14 @@ export type MenuThemeProps = {
   menus: Menu[];
 };
 
-function badgeList(value: unknown) {
-  return Array.isArray(value) ? (value as string[]) : [];
+/** Badges may be stored as plain strings or as `{ label, color }` objects. */
+function badgeList(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((entry) => {
+    if (typeof entry === "string") return [entry];
+    if (entry && typeof entry === "object" && "label" in entry) return [String((entry as { label: unknown }).label)];
+    return [];
+  });
 }
 
 export default function MenuTheme01({ tenant, branchId, tableNo, categories, products, menus }: MenuThemeProps) {

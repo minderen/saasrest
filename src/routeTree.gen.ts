@@ -10,33 +10,183 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PanelRouteImport } from './routes/panel'
+import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
+import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
+import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelLeadsRouteImport } from './routes/panel.leads'
+import { Route as PanelMenuRouteImport } from './routes/panel.menu'
+import { Route as PanelOrdersRouteImport } from './routes/panel.orders'
+import { Route as PanelPlansRouteImport } from './routes/panel.plans'
+import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
+import { Route as PanelTenantsRouteImport } from './routes/panel.tenants'
+import { Route as PanelThemesRouteImport } from './routes/panel.themes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelRoute = PanelRouteImport.update({
+  id: '/panel',
+  path: '/panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TenantIndexRoute = TenantIndexRouteImport.update({
+  id: '/$tenant/',
+  path: '/$tenant/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TenantMenuRoute = TenantMenuRouteImport.update({
+  id: '/$tenant/menu',
+  path: '/$tenant/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelIndexRoute = PanelIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelLeadsRoute = PanelLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelMenuRoute = PanelMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelOrdersRoute = PanelOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPlansRoute = PanelPlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPluginsRoute = PanelPluginsRouteImport.update({
+  id: '/plugins',
+  path: '/plugins',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelTenantsRoute = PanelTenantsRouteImport.update({
+  id: '/tenants',
+  path: '/tenants',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelThemesRoute = PanelThemesRouteImport.update({
+  id: '/themes',
+  path: '/themes',
+  getParentRoute: () => PanelRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/panel': typeof PanelRouteWithChildren
+  '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/leads': typeof PanelLeadsRoute
+  '/panel/menu': typeof PanelMenuRoute
+  '/panel/orders': typeof PanelOrdersRoute
+  '/panel/plans': typeof PanelPlansRoute
+  '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/tenants': typeof PanelTenantsRoute
+  '/panel/themes': typeof PanelThemesRoute
+  '/$tenant/': typeof TenantIndexRoute
+  '/panel/': typeof PanelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/leads': typeof PanelLeadsRoute
+  '/panel/menu': typeof PanelMenuRoute
+  '/panel/orders': typeof PanelOrdersRoute
+  '/panel/plans': typeof PanelPlansRoute
+  '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/tenants': typeof PanelTenantsRoute
+  '/panel/themes': typeof PanelThemesRoute
+  '/$tenant': typeof TenantIndexRoute
+  '/panel': typeof PanelIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/panel': typeof PanelRouteWithChildren
+  '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/leads': typeof PanelLeadsRoute
+  '/panel/menu': typeof PanelMenuRoute
+  '/panel/orders': typeof PanelOrdersRoute
+  '/panel/plans': typeof PanelPlansRoute
+  '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/tenants': typeof PanelTenantsRoute
+  '/panel/themes': typeof PanelThemesRoute
+  '/$tenant/': typeof TenantIndexRoute
+  '/panel/': typeof PanelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/panel'
+    | '/$tenant/menu'
+    | '/panel/leads'
+    | '/panel/menu'
+    | '/panel/orders'
+    | '/panel/plans'
+    | '/panel/plugins'
+    | '/panel/tenants'
+    | '/panel/themes'
+    | '/$tenant/'
+    | '/panel/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/$tenant/menu'
+    | '/panel/leads'
+    | '/panel/menu'
+    | '/panel/orders'
+    | '/panel/plans'
+    | '/panel/plugins'
+    | '/panel/tenants'
+    | '/panel/themes'
+    | '/$tenant'
+    | '/panel'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/panel'
+    | '/$tenant/menu'
+    | '/panel/leads'
+    | '/panel/menu'
+    | '/panel/orders'
+    | '/panel/plans'
+    | '/panel/plugins'
+    | '/panel/tenants'
+    | '/panel/themes'
+    | '/$tenant/'
+    | '/panel/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  PanelRoute: typeof PanelRouteWithChildren
+  TenantMenuRoute: typeof TenantMenuRoute
+  TenantIndexRoute: typeof TenantIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +198,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel': {
+      id: '/panel'
+      path: '/panel'
+      fullPath: '/panel'
+      preLoaderRoute: typeof PanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$tenant/': {
+      id: '/$tenant/'
+      path: '/$tenant'
+      fullPath: '/$tenant/'
+      preLoaderRoute: typeof TenantIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$tenant/menu': {
+      id: '/$tenant/menu'
+      path: '/$tenant/menu'
+      fullPath: '/$tenant/menu'
+      preLoaderRoute: typeof TenantMenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel/': {
+      id: '/panel/'
+      path: '/'
+      fullPath: '/panel/'
+      preLoaderRoute: typeof PanelIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/leads': {
+      id: '/panel/leads'
+      path: '/leads'
+      fullPath: '/panel/leads'
+      preLoaderRoute: typeof PanelLeadsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/menu': {
+      id: '/panel/menu'
+      path: '/menu'
+      fullPath: '/panel/menu'
+      preLoaderRoute: typeof PanelMenuRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/orders': {
+      id: '/panel/orders'
+      path: '/orders'
+      fullPath: '/panel/orders'
+      preLoaderRoute: typeof PanelOrdersRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/plans': {
+      id: '/panel/plans'
+      path: '/plans'
+      fullPath: '/panel/plans'
+      preLoaderRoute: typeof PanelPlansRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/plugins': {
+      id: '/panel/plugins'
+      path: '/plugins'
+      fullPath: '/panel/plugins'
+      preLoaderRoute: typeof PanelPluginsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/tenants': {
+      id: '/panel/tenants'
+      path: '/tenants'
+      fullPath: '/panel/tenants'
+      preLoaderRoute: typeof PanelTenantsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/themes': {
+      id: '/panel/themes'
+      path: '/themes'
+      fullPath: '/panel/themes'
+      preLoaderRoute: typeof PanelThemesRouteImport
+      parentRoute: typeof PanelRoute
+    }
   }
 }
 
+interface PanelRouteChildren {
+  PanelLeadsRoute: typeof PanelLeadsRoute
+  PanelMenuRoute: typeof PanelMenuRoute
+  PanelOrdersRoute: typeof PanelOrdersRoute
+  PanelPlansRoute: typeof PanelPlansRoute
+  PanelPluginsRoute: typeof PanelPluginsRoute
+  PanelTenantsRoute: typeof PanelTenantsRoute
+  PanelThemesRoute: typeof PanelThemesRoute
+  PanelIndexRoute: typeof PanelIndexRoute
+}
+
+const PanelRouteChildren: PanelRouteChildren = {
+  PanelLeadsRoute: PanelLeadsRoute,
+  PanelMenuRoute: PanelMenuRoute,
+  PanelOrdersRoute: PanelOrdersRoute,
+  PanelPlansRoute: PanelPlansRoute,
+  PanelPluginsRoute: PanelPluginsRoute,
+  PanelTenantsRoute: PanelTenantsRoute,
+  PanelThemesRoute: PanelThemesRoute,
+  PanelIndexRoute: PanelIndexRoute,
+}
+
+const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  PanelRoute: PanelRouteWithChildren,
+  TenantMenuRoute: TenantMenuRoute,
+  TenantIndexRoute: TenantIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
