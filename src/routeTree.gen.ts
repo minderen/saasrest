@@ -38,6 +38,7 @@ import { Route as PanelPermissionsRouteImport } from './routes/panel.permissions
 import { Route as PanelPlansRouteImport } from './routes/panel.plans'
 import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
 import { Route as PanelPostsRouteImport } from './routes/panel.posts'
+import { Route as PanelQrMenuRouteImport } from './routes/panel.qr-menu'
 import { Route as PanelRolesRouteImport } from './routes/panel.roles'
 import { Route as PanelSeoRouteImport } from './routes/panel.seo'
 import { Route as PanelSettingsRouteImport } from './routes/panel.settings'
@@ -195,6 +196,11 @@ const PanelPostsRoute = PanelPostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelQrMenuRoute = PanelQrMenuRouteImport.update({
+  id: '/qr-menu',
+  path: '/qr-menu',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelRolesRoute = PanelRolesRouteImport.update({
   id: '/roles',
   path: '/roles',
@@ -279,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
+  '/panel/qr-menu': typeof PanelQrMenuRoute
   '/panel/roles': typeof PanelRolesRoute
   '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
@@ -320,6 +327,7 @@ export interface FileRoutesByTo {
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
+  '/panel/qr-menu': typeof PanelQrMenuRoute
   '/panel/roles': typeof PanelRolesRoute
   '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
@@ -363,6 +371,7 @@ export interface FileRoutesById {
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
+  '/panel/qr-menu': typeof PanelQrMenuRoute
   '/panel/roles': typeof PanelRolesRoute
   '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
@@ -407,6 +416,7 @@ export interface FileRouteTypes {
     | '/panel/plans'
     | '/panel/plugins'
     | '/panel/posts'
+    | '/panel/qr-menu'
     | '/panel/roles'
     | '/panel/seo'
     | '/panel/settings'
@@ -448,6 +458,7 @@ export interface FileRouteTypes {
     | '/panel/plans'
     | '/panel/plugins'
     | '/panel/posts'
+    | '/panel/qr-menu'
     | '/panel/roles'
     | '/panel/seo'
     | '/panel/settings'
@@ -490,6 +501,7 @@ export interface FileRouteTypes {
     | '/panel/plans'
     | '/panel/plugins'
     | '/panel/posts'
+    | '/panel/qr-menu'
     | '/panel/roles'
     | '/panel/seo'
     | '/panel/settings'
@@ -718,6 +730,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelPostsRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/qr-menu': {
+      id: '/panel/qr-menu'
+      path: '/qr-menu'
+      fullPath: '/panel/qr-menu'
+      preLoaderRoute: typeof PanelQrMenuRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/roles': {
       id: '/panel/roles'
       path: '/roles'
@@ -822,6 +841,7 @@ interface PanelRouteChildren {
   PanelPlansRoute: typeof PanelPlansRoute
   PanelPluginsRoute: typeof PanelPluginsRoute
   PanelPostsRoute: typeof PanelPostsRoute
+  PanelQrMenuRoute: typeof PanelQrMenuRoute
   PanelRolesRoute: typeof PanelRolesRoute
   PanelSeoRoute: typeof PanelSeoRoute
   PanelSettingsRoute: typeof PanelSettingsRoute
@@ -860,6 +880,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelPlansRoute: PanelPlansRoute,
   PanelPluginsRoute: PanelPluginsRoute,
   PanelPostsRoute: PanelPostsRoute,
+  PanelQrMenuRoute: PanelQrMenuRoute,
   PanelRolesRoute: PanelRolesRoute,
   PanelSeoRoute: PanelSeoRoute,
   PanelSettingsRoute: PanelSettingsRoute,
