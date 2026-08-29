@@ -16,6 +16,7 @@ import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
 import { Route as PanelIndexRouteImport } from './routes/panel.index'
 import { Route as PanelLeadsRouteImport } from './routes/panel.leads'
+import { Route as PanelMenuRouteImport } from './routes/panel.menu'
 import { Route as PanelOrdersRouteImport } from './routes/panel.orders'
 import { Route as PanelPlansRouteImport } from './routes/panel.plans'
 import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
@@ -57,6 +58,11 @@ const PanelLeadsRoute = PanelLeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelMenuRoute = PanelMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelOrdersRoute = PanelOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/menu': typeof PanelMenuRoute
   '/panel/orders': typeof PanelOrdersRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/menu': typeof PanelMenuRoute
   '/panel/orders': typeof PanelOrdersRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/menu': typeof PanelMenuRoute
   '/panel/orders': typeof PanelOrdersRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/panel'
     | '/$tenant/menu'
     | '/panel/leads'
+    | '/panel/menu'
     | '/panel/orders'
     | '/panel/plans'
     | '/panel/plugins'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/$tenant/menu'
     | '/panel/leads'
+    | '/panel/menu'
     | '/panel/orders'
     | '/panel/plans'
     | '/panel/plugins'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/panel'
     | '/$tenant/menu'
     | '/panel/leads'
+    | '/panel/menu'
     | '/panel/orders'
     | '/panel/plans'
     | '/panel/plugins'
@@ -228,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelLeadsRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/menu': {
+      id: '/panel/menu'
+      path: '/menu'
+      fullPath: '/panel/menu'
+      preLoaderRoute: typeof PanelMenuRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/orders': {
       id: '/panel/orders'
       path: '/orders'
@@ -268,6 +287,7 @@ declare module '@tanstack/react-router' {
 
 interface PanelRouteChildren {
   PanelLeadsRoute: typeof PanelLeadsRoute
+  PanelMenuRoute: typeof PanelMenuRoute
   PanelOrdersRoute: typeof PanelOrdersRoute
   PanelPlansRoute: typeof PanelPlansRoute
   PanelPluginsRoute: typeof PanelPluginsRoute
@@ -278,6 +298,7 @@ interface PanelRouteChildren {
 
 const PanelRouteChildren: PanelRouteChildren = {
   PanelLeadsRoute: PanelLeadsRoute,
+  PanelMenuRoute: PanelMenuRoute,
   PanelOrdersRoute: PanelOrdersRoute,
   PanelPlansRoute: PanelPlansRoute,
   PanelPluginsRoute: PanelPluginsRoute,

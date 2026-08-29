@@ -34,7 +34,7 @@ type ProductRow = {
   price: number;
   currency: string;
   short_description: string | null;
-  description: string | null;
+  description?: string | null;
   image_url: string | null;
   status: string;
 };
@@ -150,7 +150,7 @@ function MenuAdminPage() {
         <p className="text-sm text-muted-foreground">Yükleniyor…</p>
       ) : (
         <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {(products as ProductRow[]).map((product) => (
+          {(products as unknown as ProductRow[]).map((product) => (
             <li key={product.id} className="surface-card flex flex-col gap-3 p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
