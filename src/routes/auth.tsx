@@ -27,12 +27,12 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { user, loading } = useAuth();
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && user) void navigate({ to: "/panel" });
-  }, [isLoading, user, navigate]);
+    if (!loading && user) void navigate({ to: "/panel" });
+  }, [loading, user, navigate]);
 
   async function signIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
