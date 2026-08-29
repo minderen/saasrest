@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { adminRepository } from "@/repositories/admin";
+import { adminRepository } from "@/repositories";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/tenants")({

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { adminRepository } from "@/repositories/admin";
+import { adminRepository } from "@/repositories";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/leads")({

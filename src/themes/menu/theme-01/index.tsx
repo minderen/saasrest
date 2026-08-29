@@ -11,8 +11,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Lightbox } from "@/components/shared/lightbox";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { formatMoney } from "@/lib/format";
-import { useCart } from "@/modules/cart/cart-context";
-import { orderService } from "@/services/order-service";
+import { useCart } from "@/modules/cart";
+import { orderService } from "@/services";
 
 type Category = { id: string; name: string; slug: string; description: string | null; image_url: string | null };
 

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { adminRepository } from "@/repositories/admin";
-import { useAuth } from "@/hooks/useAuth";
+import { adminRepository } from "@/repositories";
+import { useAuth } from "@/modules/auth";
 
 export const Route = createFileRoute("/panel/")({
   component: PanelOverview,

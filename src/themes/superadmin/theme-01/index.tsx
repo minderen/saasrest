@@ -4,8 +4,9 @@ import { Megaphone, QrCode } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { useT } from "@/lib/i18n";
-import type { LandingSection } from "@/repositories/landing";
+import { landingNav } from "@/config/navigation";
+import { useT } from "@/i18n";
+import type { LandingSection } from "@/types";
 
 import { Hero } from "./Hero";
 import { Features, HowItWorks, WhatSection } from "./Features";
@@ -32,14 +33,6 @@ export type LandingThemeProps = {
   demoSlug: string;
 };
 
-const NAV = [
-  { href: "#what", key: "nav.about", label: "Platform" },
-  { href: "#features", key: "nav.features", label: "Özellikler" },
-  { href: "#how", key: "nav.how", label: "Nasıl çalışır" },
-  { href: "#plans", key: "nav.plans", label: "Planlar" },
-  { href: "#faq", key: "nav.faq", label: "SSS" },
-  { href: "#contact", key: "nav.contact", label: "İletişim" },
-];
 
 export default function LandingTheme01({
   announcement,
@@ -88,7 +81,7 @@ export default function LandingTheme01({
             {brand["site_name"] ?? "QR Sofra"}
           </a>
           <nav aria-label="Ana menü" className="hidden items-center gap-1 lg:flex">
-            {NAV.map((item) => (
+            {landingNav.map((item) => (
               <a
                 key={item.href}
                 href={item.href}

@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useQueries } from "@tanstack/react-query";
 
-import { landingRepository } from "@/repositories/landing";
-import { useI18n } from "@/lib/i18n";
+import { LoadingScreen } from "@/components/shared/state-screens";
+import { useI18n } from "@/i18n";
+import { useLandingContent } from "@/modules/landing/use-landing-content";
 import { landingThemes, resolveTheme } from "@/themes/registry";
 import type { LandingThemeProps } from "@/themes/superadmin/theme-01/index";
 
@@ -28,44 +28,17 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-function Skeleton() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <p className="text-sm text-muted-foreground">Yükleniyor…</p>
-    </div>
-  );
-}
-
 function LandingPage() {
   const { locale } = useI18n();
-  const results = useQueries({
-    queries: [
-      { queryKey: ["landing", "announcement", locale], queryFn: () => landingRepository.announcement(locale) },
-      { queryKey: ["landing", "sections", locale], queryFn: () => landingRepository.sections(locale) },
-      { queryKey: ["landing", "features", locale], queryFn: () => landingRepository.features(locale) },
-      { queryKey: ["landing", "faqs", locale], queryFn: () => landingRepository.faqs(locale) },
-      { queryKey: ["landing", "plans"], queryFn: () => landingRepository.plans() },
-      { queryKey: ["landing", "brand"], queryFn: () => landingRepository.settings("brand") },
-      { queryKey: ["landing", "demo"], queryFn: () => landingRepository.settings("demo") },
-    ],
-  });
+  const { isPending, content } = useLandingContent(locale);
 
-  if (results.some((result) => result.isPending)) return <Skeleton />;
+  if (isPending) return <LoadingScreen />;
 
-  const [announcement, sections, features, faqs, plans, brand, demo] = results;
   const Theme = resolveTheme<LandingThemeProps>(landingThemes, "theme-01");
 
   return (
-    <Suspense fallback={<Skeleton />}>
-      <Theme
-        announcement={(announcement.data as LandingThemeProps["announcement"]) ?? null}
-        sections={(sections.data as LandingThemeProps["sections"]) ?? []}
-        features={(features.data as LandingThemeProps["features"]) ?? []}
-        faqs={(faqs.data as LandingThemeProps["faqs"]) ?? []}
-        plans={(plans.data as LandingThemeProps["plans"]) ?? []}
-        brand={(brand.data as Record<string, string>) ?? {}}
-        demoSlug={((demo.data as Record<string, string>) ?? {})["tenant_slug"] ?? "anatolia"}
-      />
+    <Suspense fallback={<LoadingScreen />}>
+      <Theme {...content} />
     </Suspense>
   );
 }

@@ -1,16 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 
-export type LandingSection = {
-  id: string;
-  key: string;
-  eyebrow: string | null;
-  title: string | null;
-  subtitle: string | null;
-  body: string | null;
-  media_url: string | null;
-  config: Record<string, unknown>;
-  sort_order: number;
-};
+import type { LandingSection } from "@/types";
 
 export const landingRepository = {
   async announcement(locale: string) {
