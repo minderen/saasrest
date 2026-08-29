@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { useServerFn } from "@tanstack/react-start";
+
 import { RequireAccess } from "@/modules/auth";
+import { setTenantPublished } from "@/lib/authz.functions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ExternalLink } from "lucide-react";
 import { toast } from "sonner";
