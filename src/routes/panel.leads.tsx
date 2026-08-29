@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { RequireAccess } from "@/modules/auth";
 import { useQuery } from "@tanstack/react-query";
 
 import { adminRepository } from "@/repositories";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/leads")({
-  component: LeadsPage,
+  component: GuardedPage,
 });
 
 function LeadsPage() {
@@ -46,5 +48,13 @@ function LeadsPage() {
         </ul>
       )}
     </div>
+  );
+}
+
+function GuardedPage() {
+  return (
+    <RequireAccess scope="super">
+      <LeadsPage />
+    </RequireAccess>
   );
 }

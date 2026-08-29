@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { RequireAccess } from "@/modules/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -7,7 +9,7 @@ import { adminRepository } from "@/repositories";
 import { formatMoney } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/plans")({
-  component: PlansPage,
+  component: GuardedPage,
 });
 
 function PlansPage() {
@@ -63,5 +65,13 @@ function PlansPage() {
         </ul>
       )}
     </div>
+  );
+}
+
+function GuardedPage() {
+  return (
+    <RequireAccess scope="super">
+      <PlansPage />
+    </RequireAccess>
   );
 }

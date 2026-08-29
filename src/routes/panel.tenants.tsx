@@ -1,4 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { useServerFn } from "@tanstack/react-start";
+
+import { RequireAccess } from "@/modules/auth";
+import { setTenantPublished } from "@/lib/authz.functions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ExternalLink } from "lucide-react";
 import { toast } from "sonner";
@@ -10,23 +15,25 @@ import { adminRepository } from "@/repositories";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/tenants")({
-  component: TenantsPage,
+  component: GuardedPage,
 });
 
 function TenantsPage() {
   const queryClient = useQueryClient();
+  const publishTenant = useServerFn(setTenantPublished);
   const { data: tenants = [], isPending } = useQuery({
     queryKey: ["panel", "tenants"],
     queryFn: adminRepository.tenants,
   });
 
   const publish = useMutation({
-    mutationFn: ({ id, value }: { id: string; value: boolean }) => adminRepository.setTenantPublished(id, value),
+    mutationFn: ({ id, value }: { id: string; value: boolean }) =>
+      publishTenant({ data: { tenantId: id, isPublished: value } }),
     onSuccess: async () => {
       toast.success("Yayın durumu güncellendi");
       await queryClient.invalidateQueries({ queryKey: ["panel", "tenants"] });
     },
-    onError: () => toast.error("Güncelleme başarısız"),
+    onError: (error: Error) => toast.error(error.message || "Güncelleme başarısız"),
   });
 
   return (
@@ -94,5 +101,13 @@ function TenantsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+function GuardedPage() {
+  return (
+    <RequireAccess scope="staff">
+      <TenantsPage />
+    </RequireAccess>
   );
 }

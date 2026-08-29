@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { RequireAccess } from "@/modules/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -15,7 +17,7 @@ import { adminRepository, tenantContentRepository } from "@/repositories";
 import { formatMoney, slugify } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/menu")({
-  component: MenuAdminPage,
+  component: GuardedPage,
 });
 
 const productSchema = z.object({
@@ -228,5 +230,13 @@ function MenuAdminPage() {
         </form>
       </Lightbox>
     </div>
+  );
+}
+
+function GuardedPage() {
+  return (
+    <RequireAccess scope="tenant">
+      <MenuAdminPage />
+    </RequireAccess>
   );
 }

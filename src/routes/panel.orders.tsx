@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { RequireAccess } from "@/modules/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -7,7 +9,7 @@ import { adminRepository } from "@/repositories";
 import { formatMoney } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/orders")({
-  component: OrdersPage,
+  component: GuardedPage,
 });
 
 const STATUSES = ["new", "preparing", "delivered", "cancelled"] as const;
@@ -92,5 +94,13 @@ function OrdersPage() {
         </ul>
       )}
     </div>
+  );
+}
+
+function GuardedPage() {
+  return (
+    <RequireAccess scope="tenant">
+      <OrdersPage />
+    </RequireAccess>
   );
 }
