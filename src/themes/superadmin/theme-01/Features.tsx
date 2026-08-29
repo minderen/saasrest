@@ -35,7 +35,7 @@ type Feature = {
   detail_html: string | null;
 };
 
-export function WhatSection({ section }: { section?: LandingSection }) {
+export function WhatSection({ section }: { section?: LandingSection | undefined }) {
   if (!section) return null;
   const badges = ((section.config as { badges?: string[] }).badges ?? []) as string[];
 
@@ -102,7 +102,7 @@ export function Features({ section, features }: { section?: LandingSection | und
   );
 }
 
-export function HowItWorks({ section }: { section?: LandingSection }) {
+export function HowItWorks({ section }: { section?: LandingSection | undefined }) {
   if (!section) return null;
   const steps = ((section.config as { steps?: Array<{ title: string; text: string }> }).steps ?? []) as Array<{
     title: string;
