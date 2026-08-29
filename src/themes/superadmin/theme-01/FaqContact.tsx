@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useT } from "@/i18n";
 import { leadService } from "@/services";
-import type { LandingSection } from "@/repositories/landing.repository";
+import type { LandingSection } from "@/types";
 
 export function Faq({ section, faqs }: { section?: LandingSection | undefined; faqs: Array<{ id: string; question: string; answer: string }> }) {
   if (!section) return null;

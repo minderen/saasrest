@@ -1,14 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 
-export type TenantRecord = {
-  id: string;
-  name: string;
-  slug: string;
-  default_locale: string;
-  website_theme: string;
-  menu_theme: string;
-  is_published: boolean;
-};
+import type { TenantRecord } from "@/types";
 
 export const tenantRepository = {
   async bySlug(slug: string) {

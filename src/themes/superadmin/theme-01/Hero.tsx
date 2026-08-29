@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { useT } from "@/i18n";
-import type { LandingSection } from "@/repositories/landing.repository";
+import type { LandingSection } from "@/types";
 
 export function Hero({ section, demoSlug }: { section?: LandingSection | undefined; demoSlug: string }) {
   const t = useT();

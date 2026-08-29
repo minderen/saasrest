@@ -1,14 +1,8 @@
 import { createContext, useCallback, useContext, useMemo, useReducer, type ReactNode } from "react";
 
-export type CartLine = {
-  key: string;
-  item_name: string;
-  unit_price: number;
-  quantity: number;
-  image_url: string | null;
-  product_id: string | null;
-  menu_id: string | null;
-};
+import type { CartLine } from "@/types";
+
+export type { CartLine };
 
 type State = { lines: CartLine[] };
 

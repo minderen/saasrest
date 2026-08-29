@@ -5,7 +5,7 @@ import { Megaphone, QrCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { useT } from "@/i18n";
-import type { LandingSection } from "@/repositories/landing.repository";
+import type { LandingSection } from "@/types";
 
 import { Hero } from "./Hero";
 import { Features, HowItWorks, WhatSection } from "./Features";
