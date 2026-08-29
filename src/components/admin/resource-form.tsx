@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import type { AdminField, AdminFieldOption } from "@/types/admin";
 
-function defaultText(field: AdminField, row?: Record<string, unknown> | null) {
+function defaultText(field: AdminField, row?: Record<string, unknown> | null | undefined) {
   const value = row?.[field.name];
   if (value === null || value === undefined) return "";
   if (field.type === "json") return JSON.stringify(value, null, 2);
@@ -19,7 +19,7 @@ export function ResourceField({
   options,
 }: {
   field: AdminField;
-  row?: Record<string, unknown> | null;
+  row?: Record<string, unknown> | null | undefined;
   options: AdminFieldOption[];
 }) {
   const id = `field-${field.name}`;
@@ -79,7 +79,7 @@ export function ResourceFields({
   optionMap,
 }: {
   fields: AdminField[];
-  row?: Record<string, unknown> | null;
+  row?: Record<string, unknown> | null | undefined;
   optionMap: Record<string, AdminFieldOption[]>;
 }) {
   return (
