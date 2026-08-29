@@ -11,8 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PanelRouteImport } from './routes/panel'
 import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
+import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelOrdersRouteImport } from './routes/panel.orders'
+import { Route as PanelTenantsRouteImport } from './routes/panel.tenants'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelRoute = PanelRouteImport.update({
+  id: '/panel',
+  path: '/panel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TenantIndexRoute = TenantIndexRouteImport.update({
@@ -34,37 +43,88 @@ const TenantMenuRoute = TenantMenuRouteImport.update({
   path: '/$tenant/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelIndexRoute = PanelIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelOrdersRoute = PanelOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelTenantsRoute = PanelTenantsRouteImport.update({
+  id: '/tenants',
+  path: '/tenants',
+  getParentRoute: () => PanelRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/orders': typeof PanelOrdersRoute
+  '/panel/tenants': typeof PanelTenantsRoute
   '/$tenant/': typeof TenantIndexRoute
+  '/panel/': typeof PanelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/orders': typeof PanelOrdersRoute
+  '/panel/tenants': typeof PanelTenantsRoute
   '/$tenant': typeof TenantIndexRoute
+  '/panel': typeof PanelIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/orders': typeof PanelOrdersRoute
+  '/panel/tenants': typeof PanelTenantsRoute
   '/$tenant/': typeof TenantIndexRoute
+  '/panel/': typeof PanelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/$tenant/menu' | '/$tenant/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/panel'
+    | '/$tenant/menu'
+    | '/panel/orders'
+    | '/panel/tenants'
+    | '/$tenant/'
+    | '/panel/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/$tenant/menu' | '/$tenant'
-  id: '__root__' | '/' | '/auth' | '/$tenant/menu' | '/$tenant/'
+  to:
+    | '/'
+    | '/auth'
+    | '/$tenant/menu'
+    | '/panel/orders'
+    | '/panel/tenants'
+    | '/$tenant'
+    | '/panel'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/panel'
+    | '/$tenant/menu'
+    | '/panel/orders'
+    | '/panel/tenants'
+    | '/$tenant/'
+    | '/panel/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  PanelRoute: typeof PanelRouteWithChildren
   TenantMenuRoute: typeof TenantMenuRoute
   TenantIndexRoute: typeof TenantIndexRoute
 }
@@ -85,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel': {
+      id: '/panel'
+      path: '/panel'
+      fullPath: '/panel'
+      preLoaderRoute: typeof PanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$tenant/': {
       id: '/$tenant/'
       path: '/$tenant'
@@ -99,12 +166,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TenantMenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel/': {
+      id: '/panel/'
+      path: '/'
+      fullPath: '/panel/'
+      preLoaderRoute: typeof PanelIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/orders': {
+      id: '/panel/orders'
+      path: '/orders'
+      fullPath: '/panel/orders'
+      preLoaderRoute: typeof PanelOrdersRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/tenants': {
+      id: '/panel/tenants'
+      path: '/tenants'
+      fullPath: '/panel/tenants'
+      preLoaderRoute: typeof PanelTenantsRouteImport
+      parentRoute: typeof PanelRoute
+    }
   }
 }
+
+interface PanelRouteChildren {
+  PanelOrdersRoute: typeof PanelOrdersRoute
+  PanelTenantsRoute: typeof PanelTenantsRoute
+  PanelIndexRoute: typeof PanelIndexRoute
+}
+
+const PanelRouteChildren: PanelRouteChildren = {
+  PanelOrdersRoute: PanelOrdersRoute,
+  PanelTenantsRoute: PanelTenantsRoute,
+  PanelIndexRoute: PanelIndexRoute,
+}
+
+const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  PanelRoute: PanelRouteWithChildren,
   TenantMenuRoute: TenantMenuRoute,
   TenantIndexRoute: TenantIndexRoute,
 }
