@@ -15,8 +15,12 @@ import { Route as PanelRouteImport } from './routes/panel'
 import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
 import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelLeadsRouteImport } from './routes/panel.leads'
 import { Route as PanelOrdersRouteImport } from './routes/panel.orders'
+import { Route as PanelPlansRouteImport } from './routes/panel.plans'
+import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
 import { Route as PanelTenantsRouteImport } from './routes/panel.tenants'
+import { Route as PanelThemesRouteImport } from './routes/panel.themes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -48,14 +52,34 @@ const PanelIndexRoute = PanelIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelLeadsRoute = PanelLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelOrdersRoute = PanelOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelPlansRoute = PanelPlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPluginsRoute = PanelPluginsRouteImport.update({
+  id: '/plugins',
+  path: '/plugins',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelTenantsRoute = PanelTenantsRouteImport.update({
   id: '/tenants',
   path: '/tenants',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelThemesRoute = PanelThemesRouteImport.update({
+  id: '/themes',
+  path: '/themes',
   getParentRoute: () => PanelRoute,
 } as any)
 
@@ -64,8 +88,12 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/leads': typeof PanelLeadsRoute
   '/panel/orders': typeof PanelOrdersRoute
+  '/panel/plans': typeof PanelPlansRoute
+  '/panel/plugins': typeof PanelPluginsRoute
   '/panel/tenants': typeof PanelTenantsRoute
+  '/panel/themes': typeof PanelThemesRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
 }
@@ -73,8 +101,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/leads': typeof PanelLeadsRoute
   '/panel/orders': typeof PanelOrdersRoute
+  '/panel/plans': typeof PanelPlansRoute
+  '/panel/plugins': typeof PanelPluginsRoute
   '/panel/tenants': typeof PanelTenantsRoute
+  '/panel/themes': typeof PanelThemesRoute
   '/$tenant': typeof TenantIndexRoute
   '/panel': typeof PanelIndexRoute
 }
@@ -84,8 +116,12 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/leads': typeof PanelLeadsRoute
   '/panel/orders': typeof PanelOrdersRoute
+  '/panel/plans': typeof PanelPlansRoute
+  '/panel/plugins': typeof PanelPluginsRoute
   '/panel/tenants': typeof PanelTenantsRoute
+  '/panel/themes': typeof PanelThemesRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
 }
@@ -96,8 +132,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/leads'
     | '/panel/orders'
+    | '/panel/plans'
+    | '/panel/plugins'
     | '/panel/tenants'
+    | '/panel/themes'
     | '/$tenant/'
     | '/panel/'
   fileRoutesByTo: FileRoutesByTo
@@ -105,8 +145,12 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/$tenant/menu'
+    | '/panel/leads'
     | '/panel/orders'
+    | '/panel/plans'
+    | '/panel/plugins'
     | '/panel/tenants'
+    | '/panel/themes'
     | '/$tenant'
     | '/panel'
   id:
@@ -115,8 +159,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/leads'
     | '/panel/orders'
+    | '/panel/plans'
+    | '/panel/plugins'
     | '/panel/tenants'
+    | '/panel/themes'
     | '/$tenant/'
     | '/panel/'
   fileRoutesById: FileRoutesById
@@ -173,11 +221,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelIndexRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/leads': {
+      id: '/panel/leads'
+      path: '/leads'
+      fullPath: '/panel/leads'
+      preLoaderRoute: typeof PanelLeadsRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/orders': {
       id: '/panel/orders'
       path: '/orders'
       fullPath: '/panel/orders'
       preLoaderRoute: typeof PanelOrdersRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/plans': {
+      id: '/panel/plans'
+      path: '/plans'
+      fullPath: '/panel/plans'
+      preLoaderRoute: typeof PanelPlansRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/plugins': {
+      id: '/panel/plugins'
+      path: '/plugins'
+      fullPath: '/panel/plugins'
+      preLoaderRoute: typeof PanelPluginsRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/tenants': {
@@ -187,18 +256,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelTenantsRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/themes': {
+      id: '/panel/themes'
+      path: '/themes'
+      fullPath: '/panel/themes'
+      preLoaderRoute: typeof PanelThemesRouteImport
+      parentRoute: typeof PanelRoute
+    }
   }
 }
 
 interface PanelRouteChildren {
+  PanelLeadsRoute: typeof PanelLeadsRoute
   PanelOrdersRoute: typeof PanelOrdersRoute
+  PanelPlansRoute: typeof PanelPlansRoute
+  PanelPluginsRoute: typeof PanelPluginsRoute
   PanelTenantsRoute: typeof PanelTenantsRoute
+  PanelThemesRoute: typeof PanelThemesRoute
   PanelIndexRoute: typeof PanelIndexRoute
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelLeadsRoute: PanelLeadsRoute,
   PanelOrdersRoute: PanelOrdersRoute,
+  PanelPlansRoute: PanelPlansRoute,
+  PanelPluginsRoute: PanelPluginsRoute,
   PanelTenantsRoute: PanelTenantsRoute,
+  PanelThemesRoute: PanelThemesRoute,
   PanelIndexRoute: PanelIndexRoute,
 }
 
