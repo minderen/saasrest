@@ -50,6 +50,7 @@ export const tenantRepository = {
         "id, image_url, eyebrow, title, description, button_label, button_href, button_target, sort_order",
       )
       .eq("tenant_id", tenantId)
+      .eq("is_active", true)
       .order("sort_order");
     if (error) throw error;
     return data ?? [];
@@ -99,6 +100,31 @@ export const tenantRepository = {
       .order("published_at", { ascending: false });
     if (error) throw error;
     return data ?? [];
+  },
+
+  /** Special products and menus highlighted on the brand website. */
+  async specials(tenantId: string) {
+    const [products, menus] = await Promise.all([
+      supabase
+        .from("products")
+        .select("id, name, slug, short_description, price, currency, image_url, badges, sort_order")
+        .eq("tenant_id", tenantId)
+        .eq("is_special", true)
+        .order("sort_order"),
+      supabase
+        .from("menus")
+        .select("id, name, slug, short_description, price, currency, image_url, badges, sort_order")
+        .eq("tenant_id", tenantId)
+        .eq("is_special", true)
+        .order("sort_order"),
+    ]);
+    if (products.error) throw products.error;
+    if (menus.error) throw menus.error;
+
+    return [
+      ...(products.data ?? []).map((row) => ({ ...row, kind: "product" as const })),
+      ...(menus.data ?? []).map((row) => ({ ...row, kind: "menu" as const })),
+    ];
   },
 
   async registerPostView(postId: string) {

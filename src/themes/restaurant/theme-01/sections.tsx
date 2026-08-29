@@ -1,32 +1,14 @@
 import { useState } from "react";
-import { Award, Clock, MapPin, Navigation, Phone, Eye } from "lucide-react";
+import { Award as AwardIcon, Clock, MapPin, Navigation, Phone, Eye } from "lucide-react";
 
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Lightbox } from "@/components/shared/lightbox";
 import { Button } from "@/components/ui/button";
 import { formatDate, isOngoing } from "@/lib/format";
 
-type Section = {
-  id: string;
-  key: string;
-  eyebrow: string | null;
-  title: string | null;
-  subtitle: string | null;
-  body: string | null;
-  config: unknown;
-};
+import type { Award, Branch, Campaign, Post, Section } from "./types";
 
-export type Branch = {
-  id: string;
-  name: string;
-  cover_image_url: string | null;
-  address: string | null;
-  city: string | null;
-  phone: string | null;
-  whatsapp: string | null;
-  directions_url: string | null;
-  opening_hours: unknown;
-};
+export type { Branch } from "./types";
 
 export function AboutSection({ section }: { section?: Section | undefined }) {
   if (!section) return null;
@@ -68,7 +50,7 @@ export function AwardsSection({
   awards,
 }: {
   section?: Section | undefined;
-  awards: Array<{ id: string; title: string; description: string | null; image_url: string | null; detail_html: string | null }>;
+  awards: Award[];
 }) {
   const [active, setActive] = useState<(typeof awards)[number] | null>(null);
   if (!section || awards.length === 0) return null;
@@ -85,7 +67,7 @@ export function AwardsSection({
                 onClick={() => setActive(award)}
                 className="surface-card h-full w-full p-6 text-left transition-colors hover:border-primary/40"
               >
-                <Award className="size-6 text-primary" aria-hidden />
+                <AwardIcon className="size-6 text-primary" aria-hidden />
                 <h3 className="mt-3 text-base font-semibold">{award.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{award.description}</p>
               </button>
@@ -105,6 +87,35 @@ export function AwardsSection({
   );
 }
 
+/**
+ * Opening hours are tenant-authored JSON. Both shapes are supported:
+ * `{ "Pzt-Cum": "09:00 - 24:00" }` and `[{ d: "Pzt-Cum", h: "09:00 - 24:00" }]`.
+ */
+function formatOpeningHours(value: unknown): string {
+  const entryLabel = (entry: Record<string, unknown>) => {
+    const day = entry["d"] ?? entry["day"] ?? entry["days"] ?? entry["label"];
+    const hours =
+      entry["h"] ?? entry["hours"] ?? entry["time"] ??
+      (entry["open"] && entry["close"] ? `${String(entry["open"])} - ${String(entry["close"])}` : undefined);
+    if (day && hours) return `${String(day)}: ${String(hours)}`;
+    return String(hours ?? day ?? "");
+  };
+
+  const parts = Array.isArray(value)
+    ? value.map((item) =>
+        item && typeof item === "object" ? entryLabel(item as Record<string, unknown>) : String(item ?? ""),
+      )
+    : value && typeof value === "object"
+      ? Object.entries(value as Record<string, unknown>).map(([day, hours]) =>
+          hours && typeof hours === "object"
+            ? entryLabel({ d: day, ...(hours as Record<string, unknown>) })
+            : `${day}: ${String(hours ?? "")}`,
+        )
+      : [];
+
+  return parts.filter(Boolean).join(" · ");
+}
+
 export function BranchesSection({ section, branches }: { section?: Section | undefined; branches: Branch[] }) {
   if (!section || branches.length === 0) return null;
 
@@ -114,7 +125,7 @@ export function BranchesSection({ section, branches }: { section?: Section | und
         <SectionHeading eyebrow={section.eyebrow} title={section.title} subtitle={section.subtitle} />
         <ul className="grid gap-6 md:grid-cols-2">
           {branches.map((branch) => {
-            const hours = (branch.opening_hours ?? {}) as Record<string, string>;
+            const hours = formatOpeningHours(branch.opening_hours);
             return (
               <li key={branch.id} className="surface-card overflow-hidden">
                 {branch.cover_image_url ? (
@@ -134,12 +145,10 @@ export function BranchesSection({ section, branches }: { section?: Section | und
                     {branch.address}
                     {branch.city ? `, ${branch.city}` : ""}
                   </p>
-                  {Object.keys(hours).length ? (
+                  {hours ? (
                     <p className="flex items-start gap-2 text-sm text-muted-foreground">
                       <Clock className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
-                      {Object.entries(hours)
-                        .map(([day, value]) => `${day}: ${value}`)
-                        .join(" · ")}
+                      {hours}
                     </p>
                   ) : null}
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -175,16 +184,7 @@ export function CampaignsSection({
   campaigns,
 }: {
   section?: Section | undefined;
-  campaigns: Array<{
-    id: string;
-    title: string;
-    excerpt: string | null;
-    description: string | null;
-    image_url: string | null;
-    badge: string | null;
-    starts_at: string | null;
-    ends_at: string | null;
-  }>;
+  campaigns: Campaign[];
 }) {
   const [active, setActive] = useState<(typeof campaigns)[number] | null>(null);
   if (!section || campaigns.length === 0) return null;
@@ -251,16 +251,7 @@ export function PostsSection({
   onOpen,
 }: {
   section?: Section | undefined;
-  posts: Array<{
-    id: string;
-    title: string;
-    excerpt: string | null;
-    content: string | null;
-    image_url: string | null;
-    badge: string | null;
-    published_at: string | null;
-    view_count: number;
-  }>;
+  posts: Post[];
   onOpen: (postId: string) => void;
 }) {
   const [active, setActive] = useState<(typeof posts)[number] | null>(null);

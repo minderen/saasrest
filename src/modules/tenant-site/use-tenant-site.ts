@@ -21,10 +21,11 @@ export function useTenantSiteContent(tenantId: string) {
       { queryKey: ["tenant", tenantId, "branches"], queryFn: () => tenantRepository.branches(tenantId), enabled },
       { queryKey: ["tenant", tenantId, "campaigns"], queryFn: () => tenantRepository.campaigns(tenantId), enabled },
       { queryKey: ["tenant", tenantId, "posts"], queryFn: () => tenantRepository.posts(tenantId), enabled },
+      { queryKey: ["tenant", tenantId, "specials"], queryFn: () => tenantRepository.specials(tenantId), enabled },
     ],
   });
 
-  const [settings, sections, navigation, slides, awards, branches, campaigns, posts] = results;
+  const [settings, sections, navigation, slides, awards, branches, campaigns, posts, specials] = results;
 
   return {
     isPending: results.some((result) => result.isPending),
@@ -37,6 +38,7 @@ export function useTenantSiteContent(tenantId: string) {
       branches: (branches?.data as RestaurantThemeProps["branches"]) ?? [],
       campaigns: (campaigns?.data as RestaurantThemeProps["campaigns"]) ?? [],
       posts: (posts?.data as RestaurantThemeProps["posts"]) ?? [],
+      specials: (specials?.data as RestaurantThemeProps["specials"]) ?? [],
     },
   };
 }
