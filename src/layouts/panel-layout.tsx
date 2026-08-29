@@ -1,30 +1,33 @@
-import { useEffect } from "react";
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { LogOut, QrCode } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { LoadingScreen } from "@/components/shared/state-screens";
 import { appConfig } from "@/config/app.config";
 import { filterPanelNav, panelNav } from "@/config/navigation";
-import { useAuth } from "@/modules/auth";
+import { RequireAccess, useAuth } from "@/modules/auth";
 
 /** Authenticated shell for every /panel/* route. Presentation only. */
 export function PanelLayout() {
+  return (
+    <RequireAccess scope="authenticated">
+      <PanelShell />
+    </RequireAccess>
+  );
+}
+
+function PanelShell() {
   const navigate = useNavigate();
-  const { user, loading, isSuperAdmin, isAgent, tenantIds, signOut } = useAuth();
-
-  useEffect(() => {
-    if (!loading && !user) void navigate({ to: "/auth" });
-  }, [loading, user, navigate]);
-
-  if (loading || !user) return <LoadingScreen message="Panel yükleniyor…" />;
+  const queryClient = useQueryClient();
+  const { user, isSuperAdmin, isAgent, tenantIds, signOut } = useAuth();
 
   const visible = filterPanelNav(panelNav, {
     isSuperAdmin,
     isAgent,
     hasTenant: tenantIds.length > 0,
   });
+
 
   return (
     <div className="flex min-h-screen bg-background">
