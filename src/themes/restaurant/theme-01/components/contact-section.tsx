@@ -39,9 +39,9 @@ export function ContactSection({
         <div className="flex flex-col gap-6">
           <SectionHeading
             align="left"
-            eyebrow={section?.eyebrow}
-            title={section?.title}
-            subtitle={section?.subtitle}
+            eyebrow={section?.eyebrow ?? null}
+            title={section?.title ?? null}
+            subtitle={section?.subtitle ?? null}
           />
           {section?.body ? (
             <p className="text-sm leading-relaxed text-muted-foreground">{section.body}</p>
