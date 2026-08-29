@@ -11,9 +11,13 @@ export const Route = createFileRoute("/panel/")({
 const LABELS: Record<string, string> = {
   tenants: "Marka",
   agents: "Acente",
+  profiles: "Kullanıcı",
   plans: "Plan",
   products: "Ürün",
   menus: "Menü",
+  branches: "Şube",
+  campaigns: "Kampanya",
+  posts: "Haber",
   orders: "Sipariş",
   leads: "Talep",
 };
