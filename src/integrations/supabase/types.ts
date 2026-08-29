@@ -2767,6 +2767,23 @@ export type Database = {
       my_agent_ids: { Args: never; Returns: string[] }
       my_permissions: { Args: never; Returns: string[] }
       my_tenant_ids: { Args: never; Returns: string[] }
+      place_order: {
+        Args: {
+          _branch_id?: string
+          _customer_name: string
+          _customer_phone: string
+          _items: Json
+          _note?: string
+          _table_no?: string
+          _tenant_id: string
+        }
+        Returns: {
+          code: string
+          currency: string
+          id: string
+          total: number
+        }[]
+      }
       plan_feature_enabled: {
         Args: { _key: string; _plan_id: string }
         Returns: boolean
