@@ -57,7 +57,7 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
-    void navigate({ to: "/panel" });
+    void navigate({ to: redirectTo, replace: true });
   }
 
   async function signUp(event: React.FormEvent<HTMLFormElement>) {
@@ -87,7 +87,7 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    void navigate({ to: "/panel" });
+    void navigate({ to: redirectTo, replace: true });
   }
 
   return (
