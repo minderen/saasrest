@@ -28,6 +28,7 @@ import { Route as PanelFeaturesRouteImport } from './routes/panel.features'
 import { Route as PanelLandingRouteImport } from './routes/panel.landing'
 import { Route as PanelLanguagesRouteImport } from './routes/panel.languages'
 import { Route as PanelLeadsRouteImport } from './routes/panel.leads'
+import { Route as PanelLocalizationRouteImport } from './routes/panel.localization'
 import { Route as PanelLogsRouteImport } from './routes/panel.logs'
 import { Route as PanelMediaRouteImport } from './routes/panel.media'
 import { Route as PanelMenuRouteImport } from './routes/panel.menu'
@@ -144,6 +145,11 @@ const PanelLanguagesRoute = PanelLanguagesRouteImport.update({
 const PanelLeadsRoute = PanelLeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelLocalizationRoute = PanelLocalizationRouteImport.update({
+  id: '/localization',
+  path: '/localization',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelLogsRoute = PanelLogsRouteImport.update({
@@ -275,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/panel/landing': typeof PanelLandingRoute
   '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/localization': typeof PanelLocalizationRoute
   '/panel/logs': typeof PanelLogsRoute
   '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
@@ -317,6 +324,7 @@ export interface FileRoutesByTo {
   '/panel/landing': typeof PanelLandingRoute
   '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/localization': typeof PanelLocalizationRoute
   '/panel/logs': typeof PanelLogsRoute
   '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
@@ -361,6 +369,7 @@ export interface FileRoutesById {
   '/panel/landing': typeof PanelLandingRoute
   '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/localization': typeof PanelLocalizationRoute
   '/panel/logs': typeof PanelLogsRoute
   '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
@@ -406,6 +415,7 @@ export interface FileRouteTypes {
     | '/panel/landing'
     | '/panel/languages'
     | '/panel/leads'
+    | '/panel/localization'
     | '/panel/logs'
     | '/panel/media'
     | '/panel/menu'
@@ -448,6 +458,7 @@ export interface FileRouteTypes {
     | '/panel/landing'
     | '/panel/languages'
     | '/panel/leads'
+    | '/panel/localization'
     | '/panel/logs'
     | '/panel/media'
     | '/panel/menu'
@@ -491,6 +502,7 @@ export interface FileRouteTypes {
     | '/panel/landing'
     | '/panel/languages'
     | '/panel/leads'
+    | '/panel/localization'
     | '/panel/logs'
     | '/panel/media'
     | '/panel/menu'
@@ -658,6 +670,13 @@ declare module '@tanstack/react-router' {
       path: '/leads'
       fullPath: '/panel/leads'
       preLoaderRoute: typeof PanelLeadsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/localization': {
+      id: '/panel/localization'
+      path: '/localization'
+      fullPath: '/panel/localization'
+      preLoaderRoute: typeof PanelLocalizationRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/logs': {
@@ -831,6 +850,7 @@ interface PanelRouteChildren {
   PanelLandingRoute: typeof PanelLandingRoute
   PanelLanguagesRoute: typeof PanelLanguagesRoute
   PanelLeadsRoute: typeof PanelLeadsRoute
+  PanelLocalizationRoute: typeof PanelLocalizationRoute
   PanelLogsRoute: typeof PanelLogsRoute
   PanelMediaRoute: typeof PanelMediaRoute
   PanelMenuRoute: typeof PanelMenuRoute
@@ -870,6 +890,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelLandingRoute: PanelLandingRoute,
   PanelLanguagesRoute: PanelLanguagesRoute,
   PanelLeadsRoute: PanelLeadsRoute,
+  PanelLocalizationRoute: PanelLocalizationRoute,
   PanelLogsRoute: PanelLogsRoute,
   PanelMediaRoute: PanelMediaRoute,
   PanelMenuRoute: PanelMenuRoute,
