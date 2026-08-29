@@ -20,6 +20,7 @@ import { Route as PanelMenuRouteImport } from './routes/panel.menu'
 import { Route as PanelOrdersRouteImport } from './routes/panel.orders'
 import { Route as PanelPlansRouteImport } from './routes/panel.plans'
 import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
+import { Route as PanelSubscriptionsRouteImport } from './routes/panel.subscriptions'
 import { Route as PanelTenantsRouteImport } from './routes/panel.tenants'
 import { Route as PanelThemesRouteImport } from './routes/panel.themes'
 
@@ -78,6 +79,11 @@ const PanelPluginsRoute = PanelPluginsRouteImport.update({
   path: '/plugins',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelSubscriptionsRoute = PanelSubscriptionsRouteImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelTenantsRoute = PanelTenantsRouteImport.update({
   id: '/tenants',
   path: '/tenants',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/panel/orders': typeof PanelOrdersRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
   '/$tenant/': typeof TenantIndexRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/panel/orders': typeof PanelOrdersRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
   '/$tenant': typeof TenantIndexRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/panel/orders': typeof PanelOrdersRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
   '/$tenant/': typeof TenantIndexRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/panel/orders'
     | '/panel/plans'
     | '/panel/plugins'
+    | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
     | '/$tenant/'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/panel/orders'
     | '/panel/plans'
     | '/panel/plugins'
+    | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
     | '/$tenant'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/panel/orders'
     | '/panel/plans'
     | '/panel/plugins'
+    | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
     | '/$tenant/'
@@ -268,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelPluginsRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/subscriptions': {
+      id: '/panel/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/panel/subscriptions'
+      preLoaderRoute: typeof PanelSubscriptionsRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/tenants': {
       id: '/panel/tenants'
       path: '/tenants'
@@ -291,6 +310,7 @@ interface PanelRouteChildren {
   PanelOrdersRoute: typeof PanelOrdersRoute
   PanelPlansRoute: typeof PanelPlansRoute
   PanelPluginsRoute: typeof PanelPluginsRoute
+  PanelSubscriptionsRoute: typeof PanelSubscriptionsRoute
   PanelTenantsRoute: typeof PanelTenantsRoute
   PanelThemesRoute: typeof PanelThemesRoute
   PanelIndexRoute: typeof PanelIndexRoute
@@ -302,6 +322,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelOrdersRoute: PanelOrdersRoute,
   PanelPlansRoute: PanelPlansRoute,
   PanelPluginsRoute: PanelPluginsRoute,
+  PanelSubscriptionsRoute: PanelSubscriptionsRoute,
   PanelTenantsRoute: PanelTenantsRoute,
   PanelThemesRoute: PanelThemesRoute,
   PanelIndexRoute: PanelIndexRoute,

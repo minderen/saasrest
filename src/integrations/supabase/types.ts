@@ -2741,6 +2741,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      agent_effective_plan_id: { Args: { _agent_id: string }; Returns: string }
+      agent_usage_summary: {
+        Args: { _agent_id: string }
+        Returns: {
+          key: string
+          limit_value: number
+          used: number
+        }[]
+      }
       can_manage_tenant: { Args: { _tenant_id: string }; Returns: boolean }
       has_permission: { Args: { _key: string }; Returns: boolean }
       has_role: {
@@ -2758,6 +2767,31 @@ export type Database = {
       my_agent_ids: { Args: never; Returns: string[] }
       my_permissions: { Args: never; Returns: string[] }
       my_tenant_ids: { Args: never; Returns: string[] }
+      plan_feature_enabled: {
+        Args: { _key: string; _plan_id: string }
+        Returns: boolean
+      }
+      plan_limit: { Args: { _key: string; _plan_id: string }; Returns: number }
+      tenant_effective_plan_id: {
+        Args: { _tenant_id: string }
+        Returns: string
+      }
+      tenant_feature_enabled: {
+        Args: { _key: string; _tenant_id: string }
+        Returns: boolean
+      }
+      tenant_limit: {
+        Args: { _key: string; _tenant_id: string }
+        Returns: number
+      }
+      tenant_usage: {
+        Args: { _tenant_id: string }
+        Returns: {
+          key: string
+          limit_value: number
+          used: number
+        }[]
+      }
     }
     Enums: {
       app_role: "super_admin" | "agent" | "tenant_owner" | "tenant_staff"

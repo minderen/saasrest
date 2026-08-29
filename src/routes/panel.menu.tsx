@@ -13,7 +13,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Lightbox } from "@/components/shared/lightbox";
-import { adminRepository, tenantContentRepository } from "@/repositories";
+import { adminRepository, billingRepository, tenantContentRepository } from "@/repositories";
+import { UsageList } from "@/modules/billing";
 import { formatMoney, slugify } from "@/lib/format";
 
 export const Route = createFileRoute("/panel/menu")({
@@ -56,6 +57,11 @@ function MenuAdminPage() {
   const { data: categories = [] } = useQuery({
     queryKey: ["panel", "categories", tenantId],
     queryFn: () => tenantContentRepository.categories(tenantId),
+    enabled,
+  });
+  const { data: usage = [] } = useQuery({
+    queryKey: ["panel", "billing", "usage", "tenant", tenantId],
+    queryFn: () => billingRepository.tenantUsage(tenantId),
     enabled,
   });
   const { data: products = [], isPending } = useQuery({
@@ -147,6 +153,13 @@ function MenuAdminPage() {
           </Button>
         </div>
       </div>
+
+      {enabled && (
+        <section className="surface-card flex flex-col gap-3 p-5">
+          <h2 className="text-sm font-medium">Plan kullanımı</h2>
+          <UsageList rows={usage} />
+        </section>
+      )}
 
       {isPending ? (
         <p className="text-sm text-muted-foreground">Yükleniyor…</p>
