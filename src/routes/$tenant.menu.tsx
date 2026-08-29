@@ -1,21 +1,16 @@
 import { Suspense } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQueries, useQuery } from "@tanstack/react-query";
-import { z } from "zod";
+import { createFileRoute } from "@tanstack/react-router";
 
-import { menuRepository, tenantRepository } from "@/repositories";
+import { EmptyScreen, LoadingScreen } from "@/components/shared/state-screens";
 import { CartProvider } from "@/modules/cart";
+import { useTenantMenu } from "@/modules/menu/use-tenant-menu";
+import { useTenantBySlug } from "@/modules/tenant-site/use-tenant-site";
+import { qrMenuSearchSchema } from "@/validators/qr-menu.validator";
 import { menuThemes, resolveTheme } from "@/themes/registry";
 import type { MenuThemeProps } from "@/themes/menu/theme-01/index";
 
-/** QR URLs stay stable: /{tenant}/menu?branch=<uuid>&table=<no> */
-const searchSchema = z.object({
-  branch: z.string().uuid().optional(),
-  table: z.string().max(24).optional(),
-});
-
 export const Route = createFileRoute("/$tenant/menu")({
-  validateSearch: searchSchema,
+  validateSearch: qrMenuSearchSchema,
   head: () => ({
     meta: [
       { title: "Dijital QR Menü · QR Sofra" },
@@ -32,60 +27,26 @@ export const Route = createFileRoute("/$tenant/menu")({
   component: TenantMenu,
 });
 
-function Loading() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <p className="text-sm text-muted-foreground">Menü yükleniyor…</p>
-    </div>
-  );
-}
-
 function TenantMenu() {
   const { tenant: slug } = Route.useParams();
   const search = Route.useSearch();
-  const { data: tenant, isPending } = useQuery({
-    queryKey: ["tenant", slug],
-    queryFn: () => tenantRepository.bySlug(slug),
-  });
+  const { data: tenant, isPending } = useTenantBySlug(slug);
+  const { isPending: menuPending, content } = useTenantMenu(tenant?.id ?? "");
 
-  const tenantId = tenant?.id ?? "";
-  const enabled = Boolean(tenantId);
-  const results = useQueries({
-    queries: [
-      { queryKey: ["menu", tenantId, "categories"], queryFn: () => menuRepository.categories(tenantId), enabled },
-      { queryKey: ["menu", tenantId, "products"], queryFn: () => menuRepository.products(tenantId), enabled },
-      { queryKey: ["menu", tenantId, "menus"], queryFn: () => menuRepository.menus(tenantId), enabled },
-    ],
-  });
+  if (isPending) return <LoadingScreen message="Menü yükleniyor…" />;
+  if (!tenant || !tenant.is_published) return <EmptyScreen title="Menü bulunamadı" />;
+  if (menuPending) return <LoadingScreen message="Menü yükleniyor…" />;
 
-  if (isPending) return <Loading />;
-  if (!tenant || !tenant.is_published) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
-        <div>
-          <h1 className="text-2xl font-semibold">Menü bulunamadı</h1>
-          <Link to="/" className="mt-4 inline-block text-sm text-primary hover:underline">
-            Ana sayfaya dön
-          </Link>
-        </div>
-      </div>
-    );
-  }
-  if (results.some((result) => result.isPending)) return <Loading />;
-
-  const [categories, products, menus] = results;
   const Theme = resolveTheme<MenuThemeProps>(menuThemes, tenant.menu_theme);
 
   return (
     <CartProvider>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<LoadingScreen message="Menü yükleniyor…" />}>
         <Theme
           tenant={{ id: tenant.id, name: tenant.name, slug: tenant.slug }}
           branchId={search.branch ?? null}
           tableNo={search.table ?? null}
-          categories={(categories.data as MenuThemeProps["categories"]) ?? []}
-          products={(products.data as MenuThemeProps["products"]) ?? []}
-          menus={(menus.data as MenuThemeProps["menus"]) ?? []}
+          {...content}
         />
       </Suspense>
     </CartProvider>
