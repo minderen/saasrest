@@ -2,7 +2,11 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const tenantContentRepository = {
   async settings(tenantId: string) {
-    const { data, error } = await supabase.from("site_settings").select("*").eq("tenant_id", tenantId).maybeSingle();
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("*")
+      .eq("tenant_id", tenantId)
+      .maybeSingle();
     if (error) throw error;
     return data;
   },
@@ -27,7 +31,9 @@ export const tenantContentRepository = {
   async products(tenantId: string) {
     const { data, error } = await supabase
       .from("products")
-      .select("id, name, slug, category_id, price, currency, status, is_special, image_url, short_description, sort_order")
+      .select(
+        "id, name, slug, category_id, price, currency, status, is_special, image_url, short_description, sort_order",
+      )
       .eq("tenant_id", tenantId)
       .is("deleted_at", null)
       .order("sort_order");
@@ -44,14 +50,19 @@ export const tenantContentRepository = {
   },
 
   async softDeleteProduct(id: string) {
-    const { error } = await supabase.from("products").update({ deleted_at: new Date().toISOString() }).eq("id", id);
+    const { error } = await supabase
+      .from("products")
+      .update({ deleted_at: new Date().toISOString() })
+      .eq("id", id);
     if (error) throw error;
   },
 
   async campaigns(tenantId: string) {
     const { data, error } = await supabase
       .from("campaigns")
-      .select("id, title, slug, excerpt, image_url, badge, category, starts_at, ends_at, status, sort_order")
+      .select(
+        "id, title, slug, excerpt, image_url, badge, category, starts_at, ends_at, status, sort_order",
+      )
       .eq("tenant_id", tenantId)
       .is("deleted_at", null)
       .order("sort_order");
@@ -70,7 +81,9 @@ export const tenantContentRepository = {
   async posts(tenantId: string) {
     const { data, error } = await supabase
       .from("posts")
-      .select("id, title, slug, excerpt, content, image_url, badge, status, published_at, view_count")
+      .select(
+        "id, title, slug, excerpt, content, image_url, badge, status, published_at, view_count",
+      )
       .eq("tenant_id", tenantId)
       .is("deleted_at", null)
       .order("created_at", { ascending: false });
@@ -88,8 +101,12 @@ export const tenantContentRepository = {
 
   async setContentStatus(table: "products" | "campaigns" | "posts", id: string, status: string) {
     const patch: Record<string, unknown> = { status };
-    if (table === "posts" && status === "published") patch["published_at"] = new Date().toISOString();
-    const { error } = await supabase.from(table).update(patch as never).eq("id", id);
+    if (table === "posts" && status === "published")
+      patch["published_at"] = new Date().toISOString();
+    const { error } = await supabase
+      .from(table)
+      .update(patch as never)
+      .eq("id", id);
     if (error) throw error;
   },
 };

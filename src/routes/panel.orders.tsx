@@ -4,7 +4,13 @@ import { RequireAccess } from "@/modules/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { adminRepository } from "@/repositories";
 import { formatMoney } from "@/lib/format";
 
@@ -29,7 +35,8 @@ function OrdersPage() {
   });
 
   const setStatus = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: string }) => adminRepository.setOrderStatus(id, status),
+    mutationFn: ({ id, status }: { id: string; status: string }) =>
+      adminRepository.setOrderStatus(id, status),
     onSuccess: async () => {
       toast.success("Sipariş durumu güncellendi");
       await queryClient.invalidateQueries({ queryKey: ["panel", "orders"] });
@@ -41,7 +48,9 @@ function OrdersPage() {
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-semibold">Siparişler</h1>
-        <p className="mt-1 text-sm text-muted-foreground">QR menüden gelen siparişleri takip edin ve durumlarını güncelleyin.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          QR menüden gelen siparişleri takip edin ve durumlarını güncelleyin.
+        </p>
       </div>
 
       {isPending ? (
@@ -62,7 +71,10 @@ function OrdersPage() {
                     {order.customer_name} · {order.customer_phone}
                   </p>
                 </div>
-                <Select value={order.status} onValueChange={(status) => setStatus.mutate({ id: order.id, status })}>
+                <Select
+                  value={order.status}
+                  onValueChange={(status) => setStatus.mutate({ id: order.id, status })}
+                >
                   <SelectTrigger className="w-40" aria-label="Sipariş durumu">
                     <SelectValue />
                   </SelectTrigger>
@@ -81,7 +93,9 @@ function OrdersPage() {
                     <span>
                       {item.item_name} × {item.quantity}
                     </span>
-                    <span>{formatMoney(Number(item.unit_price) * item.quantity, order.currency)}</span>
+                    <span>
+                      {formatMoney(Number(item.unit_price) * item.quantity, order.currency)}
+                    </span>
                   </li>
                 ))}
               </ul>

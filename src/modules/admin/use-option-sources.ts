@@ -8,14 +8,45 @@ type SourceKey = NonNullable<AdminField["optionsFrom"]>;
 
 const SOURCES: Record<
   SourceKey,
-  { table: string; select: string; value: string; label: string; tenantScoped?: boolean; orderBy: string }
+  {
+    table: string;
+    select: string;
+    value: string;
+    label: string;
+    tenantScoped?: boolean;
+    orderBy: string;
+  }
 > = {
   tenants: { table: "tenants", select: "id, name", value: "id", label: "name", orderBy: "name" },
   agents: { table: "agents", select: "id, name", value: "id", label: "name", orderBy: "name" },
-  plans: { table: "plans", select: "id, name, kind", value: "id", label: "name", orderBy: "sort_order" },
-  languages: { table: "languages", select: "code, name", value: "code", label: "name", orderBy: "sort_order" },
-  profiles: { table: "profiles", select: "id, email", value: "id", label: "email", orderBy: "email" },
-  roles: { table: "roles", select: "key, name", value: "key", label: "name", orderBy: "sort_order" },
+  plans: {
+    table: "plans",
+    select: "id, name, kind",
+    value: "id",
+    label: "name",
+    orderBy: "sort_order",
+  },
+  languages: {
+    table: "languages",
+    select: "code, name",
+    value: "code",
+    label: "name",
+    orderBy: "sort_order",
+  },
+  profiles: {
+    table: "profiles",
+    select: "id, email",
+    value: "id",
+    label: "email",
+    orderBy: "email",
+  },
+  roles: {
+    table: "roles",
+    select: "key, name",
+    value: "key",
+    label: "name",
+    orderBy: "sort_order",
+  },
   menuCategories: {
     table: "menu_categories",
     select: "id, name",
@@ -37,7 +68,10 @@ function toOptions(source: SourceKey, rows: ResourceRow[]): AdminFieldOption[] {
 /** Loads dynamic select options declared by resource fields (`optionsFrom`). */
 export function useOptionSources(fields: AdminField[], tenantId?: string | null) {
   const sources = useMemo(
-    () => Array.from(new Set(fields.flatMap((field) => (field.optionsFrom ? [field.optionsFrom] : [])))),
+    () =>
+      Array.from(
+        new Set(fields.flatMap((field) => (field.optionsFrom ? [field.optionsFrom] : []))),
+      ),
     [fields],
   );
 

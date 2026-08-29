@@ -24,7 +24,10 @@ const LABELS: Record<string, string> = {
 
 function PanelOverview() {
   const { isSuperAdmin, isAgent, tenantIds } = useAuth();
-  const { data: counts, isPending } = useQuery({ queryKey: ["panel", "counts"], queryFn: adminRepository.counts });
+  const { data: counts, isPending } = useQuery({
+    queryKey: ["panel", "counts"],
+    queryFn: adminRepository.counts,
+  });
 
   return (
     <div className="flex flex-col gap-6">
@@ -45,7 +48,9 @@ function PanelOverview() {
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {Object.entries(counts ?? {}).map(([key, value]) => (
             <div key={key} className="surface-card p-5">
-              <dt className="text-xs uppercase tracking-widest text-muted-foreground">{LABELS[key] ?? key}</dt>
+              <dt className="text-xs uppercase tracking-widest text-muted-foreground">
+                {LABELS[key] ?? key}
+              </dt>
               <dd className="mt-2 text-3xl font-semibold text-primary">{value}</dd>
             </div>
           ))}

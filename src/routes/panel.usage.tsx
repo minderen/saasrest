@@ -51,7 +51,9 @@ function UsagePage() {
           {planId ? (
             <p className="text-xs text-muted-foreground">Geçerli plan kimliği: {planId}</p>
           ) : (
-            <p className="text-xs text-muted-foreground">Bu markaya atanmış aktif plan bulunmuyor.</p>
+            <p className="text-xs text-muted-foreground">
+              Bu markaya atanmış aktif plan bulunmuyor.
+            </p>
           )}
         </section>
       )}

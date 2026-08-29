@@ -1,6 +1,13 @@
 import type { ReactNode } from "react";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { AdminColumn } from "@/types/admin";
 
 function renderCell(column: AdminColumn, row: Record<string, unknown>) {

@@ -111,7 +111,8 @@ export const adminResources = {
     title: "Acenteler",
     description: "Acenteler kendilerine bağlı markaları yönetir; kota planla sınırlanır.",
     table: "agents",
-    select: "id, name, slug, contact_email, contact_phone, tenant_quota, plan_id, status, created_at",
+    select:
+      "id, name, slug, contact_email, contact_phone, tenant_quota, plan_id, status, created_at",
     orderBy: "created_at",
     ascending: false,
     softDelete: true,
@@ -125,7 +126,13 @@ export const adminResources = {
     ],
     fields: [
       { name: "name", label: "Acente adı", type: "text", required: true },
-      { name: "slug", label: "Slug", type: "text", slugFrom: "name", help: "Boş bırakılırsa addan üretilir." },
+      {
+        name: "slug",
+        label: "Slug",
+        type: "text",
+        slugFrom: "name",
+        help: "Boş bırakılırsa addan üretilir.",
+      },
       { name: "contact_email", label: "E-posta", type: "text" },
       { name: "contact_phone", label: "Telefon", type: "text" },
       { name: "tenant_quota", label: "Marka kotası", type: "number" },
@@ -162,7 +169,8 @@ export const adminResources = {
     title: "Satış sayfası bölümleri",
     description: "Landing page bölümlerinin başlık, metin ve yapılandırmaları.",
     table: "landing_sections",
-    select: "id, locale, key, eyebrow, title, subtitle, body, media_url, config, sort_order, is_active",
+    select:
+      "id, locale, key, eyebrow, title, subtitle, body, media_url, config, sort_order, is_active",
     orderBy: "sort_order",
     searchColumns: ["key", "title"],
     columns: [
@@ -279,7 +287,13 @@ export const adminResources = {
     ],
     fields: [
       localeField,
-      { name: "namespace", label: "Namespace", type: "text", required: true, placeholder: "common" },
+      {
+        name: "namespace",
+        label: "Namespace",
+        type: "text",
+        required: true,
+        placeholder: "common",
+      },
       { name: "key", label: "Anahtar", type: "text", required: true },
       { name: "value", label: "Değer", type: "textarea", required: true, full: true },
     ],
@@ -348,7 +362,8 @@ export const adminResources = {
     description: "Marka sitesi ana görsel alanı.",
     table: "slides",
     tenantScoped: true,
-    select: "id, image_url, eyebrow, title, description, button_label, button_href, sort_order, is_active",
+    select:
+      "id, image_url, eyebrow, title, description, button_label, button_href, sort_order, is_active",
     orderBy: "sort_order",
     columns: [
       { name: "title", label: "Başlık" },
@@ -375,7 +390,8 @@ export const adminResources = {
     table: "menus",
     tenantScoped: true,
     softDelete: true,
-    select: "id, name, slug, category_id, price, currency, short_description, is_special, status, sort_order",
+    select:
+      "id, name, slug, category_id, price, currency, short_description, is_special, status, sort_order",
     orderBy: "sort_order",
     searchColumns: ["name"],
     columns: [
@@ -434,7 +450,8 @@ export const adminResources = {
     table: "branches",
     tenantScoped: true,
     softDelete: true,
-    select: "id, name, slug, address, city, phone, whatsapp, directions_url, map_embed_url, sort_order, is_active",
+    select:
+      "id, name, slug, address, city, phone, whatsapp, directions_url, map_embed_url, sort_order, is_active",
     orderBy: "sort_order",
     searchColumns: ["name", "city"],
     columns: [
@@ -464,7 +481,8 @@ export const adminResources = {
     table: "campaigns",
     tenantScoped: true,
     softDelete: true,
-    select: "id, title, slug, excerpt, description, image_url, badge, category, starts_at, ends_at, status, sort_order",
+    select:
+      "id, title, slug, excerpt, description, image_url, badge, category, starts_at, ends_at, status, sort_order",
     orderBy: "sort_order",
     searchColumns: ["title"],
     columns: [
@@ -556,7 +574,13 @@ export const adminResources = {
       dateColumn("created_at", "Tarih"),
     ],
     fields: [
-      { name: "user_id", label: "Kullanıcı", type: "select", required: true, optionsFrom: "profiles" },
+      {
+        name: "user_id",
+        label: "Kullanıcı",
+        type: "select",
+        required: true,
+        optionsFrom: "profiles",
+      },
       { name: "title", label: "Başlık", type: "text", required: true },
       { name: "body", label: "İçerik", type: "textarea", full: true },
       { name: "href", label: "Bağlantı", type: "text", full: true },

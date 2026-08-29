@@ -1,5 +1,6 @@
 /** Declarative admin resource model. Shared by config, repository, service and UI. */
-export type AdminFieldType = "text" | "textarea" | "number" | "boolean" | "select" | "date" | "json";
+export type AdminFieldType =
+  "text" | "textarea" | "number" | "boolean" | "select" | "date" | "json";
 
 export type AdminFieldOption = { value: string; label: string };
 
@@ -13,7 +14,8 @@ export type AdminField = {
   /** Static options for select fields. */
   options?: AdminFieldOption[];
   /** Dynamic option source resolved by the UI layer. */
-  optionsFrom?: "tenants" | "agents" | "plans" | "languages" | "menuCategories" | "profiles" | "roles";
+  optionsFrom?:
+    "tenants" | "agents" | "plans" | "languages" | "menuCategories" | "profiles" | "roles";
   /** Slug target: auto-filled from this field when left empty. */
   slugFrom?: string;
   full?: boolean;

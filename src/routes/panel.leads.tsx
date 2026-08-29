@@ -11,13 +11,18 @@ export const Route = createFileRoute("/panel/leads")({
 });
 
 function LeadsPage() {
-  const { data: leads = [], isPending } = useQuery({ queryKey: ["panel", "leads"], queryFn: adminRepository.leads });
+  const { data: leads = [], isPending } = useQuery({
+    queryKey: ["panel", "leads"],
+    queryFn: adminRepository.leads,
+  });
 
   return (
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-semibold">Talepler</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Tanıtım sayfasındaki iletişim formundan gelen başvurular.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Tanıtım sayfasındaki iletişim formundan gelen başvurular.
+        </p>
       </div>
 
       {isPending ? (
@@ -42,7 +47,9 @@ function LeadsPage() {
                 {lead.phone ? ` · ${lead.phone}` : ""}
                 {lead.plan_slug ? ` · Plan: ${lead.plan_slug}` : ""}
               </p>
-              {lead.message ? <p className="text-sm text-muted-foreground">{lead.message}</p> : null}
+              {lead.message ? (
+                <p className="text-sm text-muted-foreground">{lead.message}</p>
+              ) : null}
             </li>
           ))}
         </ul>

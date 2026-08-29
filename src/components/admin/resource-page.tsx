@@ -39,7 +39,11 @@ export function ResourceSection({
   const enabled = !resource.tenantScoped || Boolean(tenantId);
   const queryKey = ["panel", "resource", resource.key, tenantId];
 
-  const { data: rows = [], isPending, error } = useQuery({
+  const {
+    data: rows = [],
+    isPending,
+    error,
+  } = useQuery({
     queryKey,
     enabled,
     queryFn: () => resourceService.list(resource, tenantId),
@@ -76,7 +80,11 @@ export function ResourceSection({
     const term = search.trim().toLowerCase();
     if (!term || !resource.searchColumns?.length) return rows;
     return rows.filter((row) =>
-      resource.searchColumns!.some((column) => String(row[column] ?? "").toLowerCase().includes(term)),
+      resource.searchColumns!.some((column) =>
+        String(row[column] ?? "")
+          .toLowerCase()
+          .includes(term),
+      ),
     );
   }, [rows, search, resource.searchColumns]);
 
@@ -122,7 +130,9 @@ export function ResourceSection({
       ) : isPending ? (
         <p className="text-sm text-muted-foreground">Yükleniyor…</p>
       ) : error ? (
-        <p className="text-sm text-destructive">{error instanceof Error ? error.message : "Veri alınamadı."}</p>
+        <p className="text-sm text-destructive">
+          {error instanceof Error ? error.message : "Veri alınamadı."}
+        </p>
       ) : (
         <DataTable
           columns={resource.columns}
@@ -145,7 +155,11 @@ export function ResourceSection({
                       Düzenle
                     </Button>
                     {resource.noDelete ? null : (
-                      <Button size="sm" variant="ghost" onClick={() => remove.mutate(row[primaryKey])}>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => remove.mutate(row[primaryKey])}
+                      >
                         <Trash2 className="size-4" aria-hidden />
                         {resource.softDelete ? "Arşivle" : "Sil"}
                       </Button>
@@ -156,7 +170,11 @@ export function ResourceSection({
         />
       )}
 
-      <Lightbox open={open} onOpenChange={setOpen} title={editing ? `${resource.title} · düzenle` : `${resource.title} · yeni`}>
+      <Lightbox
+        open={open}
+        onOpenChange={setOpen}
+        title={editing ? `${resource.title} · düzenle` : `${resource.title} · yeni`}
+      >
         <form
           className="grid gap-4 sm:grid-cols-2"
           onSubmit={(event) => {

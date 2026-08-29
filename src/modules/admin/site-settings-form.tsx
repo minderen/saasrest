@@ -33,7 +33,14 @@ export function SiteSettingsForm({
 
   const save = useMutation({
     mutationFn: async (form: FormData) => {
-      const resource = { key: "site-settings", title, description, table: "site_settings", columns: [], fields } satisfies AdminResource;
+      const resource = {
+        key: "site-settings",
+        title,
+        description,
+        table: "site_settings",
+        columns: [],
+        fields,
+      } satisfies AdminResource;
       const values = buildResourceValues(resource, form);
       await tenantContentRepository.saveSettings(tenantId, values);
     },
@@ -64,7 +71,11 @@ export function SiteSettingsForm({
             save.mutate(new FormData(event.currentTarget));
           }}
         >
-          <ResourceFields fields={fields} row={data as Record<string, unknown> | null} optionMap={{}} />
+          <ResourceFields
+            fields={fields}
+            row={data as Record<string, unknown> | null}
+            optionMap={{}}
+          />
           <div className="flex justify-end sm:col-span-2">
             <Button type="submit" disabled={save.isPending}>
               Kaydet

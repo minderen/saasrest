@@ -19,7 +19,8 @@ function PluginsPage() {
   });
 
   const toggle = useMutation({
-    mutationFn: ({ id, value }: { id: string; value: boolean }) => adminRepository.togglePlugin(id, value),
+    mutationFn: ({ id, value }: { id: string; value: boolean }) =>
+      adminRepository.togglePlugin(id, value),
     onSuccess: async () => {
       toast.success("Eklenti güncellendi");
       await queryClient.invalidateQueries({ queryKey: ["panel", "plugins"] });
@@ -44,7 +45,9 @@ function PluginsPage() {
             <li key={plugin.id} className="surface-card flex flex-col gap-2 p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground">{plugin.scope}</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                    {plugin.scope}
+                  </p>
                   <h2 className="text-lg font-semibold">{plugin.name}</h2>
                 </div>
                 <Switch

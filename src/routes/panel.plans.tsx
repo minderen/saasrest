@@ -6,7 +6,13 @@ import { Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { RequireAccess } from "@/modules/auth";
 import {
@@ -42,7 +48,10 @@ function PlansPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<PlanWithDetails | null>(null);
 
-  const { data: plans = [], isPending } = useQuery({ queryKey: PLANS_KEY, queryFn: () => billingRepository.plans() });
+  const { data: plans = [], isPending } = useQuery({
+    queryKey: PLANS_KEY,
+    queryFn: () => billingRepository.plans(),
+  });
 
   const savePlan = useServerFn(upsertPlan);
   const toggleActive = useServerFn(setPlanActive);
@@ -52,7 +61,8 @@ function PlansPage() {
   const removeLimit = useServerFn(deletePlanLimit);
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: PLANS_KEY });
-  const fail = (error: unknown) => toast.error(error instanceof Error ? error.message : "İşlem başarısız");
+  const fail = (error: unknown) =>
+    toast.error(error instanceof Error ? error.message : "İşlem başarısız");
 
   const planMutation = useMutation({
     mutationFn: (input: PlanUpsertInput) => savePlan({ data: input }),
@@ -114,8 +124,8 @@ function PlansPage() {
         <div>
           <h1 className="text-2xl font-semibold">Planlar &amp; kotalar</h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            Acente ve marka planlarını, özelliklerini ve limitlerini yönetin. Limitler veritabanı seviyesinde zorlanır;
-            kota dolduğunda yeni kayıt oluşturulamaz.
+            Acente ve marka planlarını, özelliklerini ve limitlerini yönetin. Limitler veritabanı
+            seviyesinde zorlanır; kota dolduğunda yeni kayıt oluşturulamaz.
           </p>
         </div>
         <Dialog
@@ -166,7 +176,9 @@ function PlansPage() {
                   <Switch
                     checked={plan.is_active}
                     aria-label={`${plan.name} aktifliği`}
-                    onCheckedChange={(value) => activeMutation.mutate({ id: plan.id, is_active: value })}
+                    onCheckedChange={(value) =>
+                      activeMutation.mutate({ id: plan.id, is_active: value })
+                    }
                   />
                   <Button
                     size="sm"
@@ -181,12 +193,16 @@ function PlansPage() {
                 </div>
               </div>
 
-              <p className="text-2xl font-semibold text-primary">{formatMoney(plan.price_monthly, plan.currency)}</p>
+              <p className="text-2xl font-semibold text-primary">
+                {formatMoney(plan.price_monthly, plan.currency)}
+              </p>
 
               <section className="flex flex-col gap-2">
                 <h3 className="text-sm font-medium">Özellikler</h3>
                 <PlanFeaturesEditor
-                  features={[...(plan.plan_features ?? [])].sort((a, b) => a.sort_order - b.sort_order)}
+                  features={[...(plan.plan_features ?? [])].sort(
+                    (a, b) => a.sort_order - b.sort_order,
+                  )}
                   suggestions={plan.kind === "agent" ? AGENT_FEATURE_KEYS : TENANT_FEATURE_KEYS}
                   onSave={(input) => featureMutation.mutate({ planId: plan.id, ...input })}
                   onDelete={(id) => featureDelete.mutate(id)}

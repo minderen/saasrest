@@ -17,7 +17,13 @@ export const websiteSettingsFields: AdminField[] = [
 
 /** SEO-only subset, edited on its own screen. */
 export const seoSettingsFields: AdminField[] = [
-  { name: "seo_title", label: "SEO başlığı", type: "text", full: true, help: "60 karakterin altında tutun." },
+  {
+    name: "seo_title",
+    label: "SEO başlığı",
+    type: "text",
+    full: true,
+    help: "60 karakterin altında tutun.",
+  },
   {
     name: "seo_description",
     label: "SEO açıklaması",

@@ -2,7 +2,13 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { useQuery } from "@tanstack/react-query";
 
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { adminRepository } from "@/repositories";
 
 type TenantOption = { id: string; name: string };
@@ -22,7 +28,10 @@ const TenantScopeContext = createContext<TenantScopeValue | null>(null);
  */
 export function TenantScopeProvider({ children }: { children: ReactNode }) {
   const [tenantId, setTenantId] = useState("");
-  const { data, isPending } = useQuery({ queryKey: ["panel", "tenants"], queryFn: adminRepository.tenants });
+  const { data, isPending } = useQuery({
+    queryKey: ["panel", "tenants"],
+    queryFn: adminRepository.tenants,
+  });
 
   const tenants = useMemo<TenantOption[]>(
     () => (data ?? []).map((tenant) => ({ id: tenant.id, name: tenant.name })),
