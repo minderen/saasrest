@@ -24,7 +24,16 @@ export const landingNav = [
 export type PanelScope = "all" | "super" | "staff" | "tenant";
 
 export type PanelNavItem = {
-  to: "/panel" | "/panel/tenants" | "/panel/plans" | "/panel/themes" | "/panel/plugins" | "/panel/leads" | "/panel/menu" | "/panel/orders";
+  to:
+    | "/panel"
+    | "/panel/tenants"
+    | "/panel/plans"
+    | "/panel/subscriptions"
+    | "/panel/themes"
+    | "/panel/plugins"
+    | "/panel/leads"
+    | "/panel/menu"
+    | "/panel/orders";
   label: string;
   icon: LucideIcon;
   scope: PanelScope;
@@ -34,6 +43,7 @@ export const panelNav: PanelNavItem[] = [
   { to: "/panel", label: "Genel bakış", icon: LayoutDashboard, scope: "all" },
   { to: "/panel/tenants", label: "Markalar", icon: Building2, scope: "staff" },
   { to: "/panel/plans", label: "Planlar", icon: CreditCard, scope: "super" },
+  { to: "/panel/subscriptions", label: "Abonelikler", icon: ReceiptText, scope: "super" },
   { to: "/panel/themes", label: "Temalar", icon: Palette, scope: "super" },
   { to: "/panel/plugins", label: "Eklentiler", icon: Puzzle, scope: "super" },
   { to: "/panel/leads", label: "Talepler", icon: MessageSquare, scope: "super" },
