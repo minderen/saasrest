@@ -34,7 +34,7 @@ export const resourceRepository = {
     if (spec.orderBy) query = query.order(spec.orderBy, { ascending: spec.ascending ?? true });
     const { data, error } = await query.limit(spec.limit ?? 300);
     if (error) throw error;
-    return (data ?? []) as ResourceRow[];
+    return (data ?? []) as unknown as ResourceRow[];
   },
 
   async insert(table: string, values: ResourceRow) {
