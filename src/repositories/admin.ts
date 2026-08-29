@@ -129,7 +129,7 @@ export const tenantContentRepository = {
   async saveSettings(tenantId: string, patch: Record<string, unknown>) {
     const { error } = await supabase
       .from("site_settings")
-      .upsert({ tenant_id: tenantId, ...patch }, { onConflict: "tenant_id" });
+      .upsert({ tenant_id: tenantId, ...patch } as never, { onConflict: "tenant_id" });
     if (error) throw error;
   },
 
@@ -155,7 +155,7 @@ export const tenantContentRepository = {
   },
 
   async saveProduct(tenantId: string, input: Record<string, unknown> & { id?: string }) {
-    const payload = { ...input, tenant_id: tenantId };
+    const payload = { ...input, tenant_id: tenantId } as never;
     const { error } = input.id
       ? await supabase.from("products").update(payload).eq("id", input.id)
       : await supabase.from("products").insert(payload);
@@ -179,7 +179,7 @@ export const tenantContentRepository = {
   },
 
   async saveCampaign(tenantId: string, input: Record<string, unknown> & { id?: string }) {
-    const payload = { ...input, tenant_id: tenantId };
+    const payload = { ...input, tenant_id: tenantId } as never;
     const { error } = input.id
       ? await supabase.from("campaigns").update(payload).eq("id", input.id)
       : await supabase.from("campaigns").insert(payload);
@@ -198,7 +198,7 @@ export const tenantContentRepository = {
   },
 
   async savePost(tenantId: string, input: Record<string, unknown> & { id?: string }) {
-    const payload = { ...input, tenant_id: tenantId };
+    const payload = { ...input, tenant_id: tenantId } as never;
     const { error } = input.id
       ? await supabase.from("posts").update(payload).eq("id", input.id)
       : await supabase.from("posts").insert(payload);
@@ -207,8 +207,8 @@ export const tenantContentRepository = {
 
   async setContentStatus(table: "products" | "campaigns" | "posts", id: string, status: string) {
     const patch: Record<string, unknown> = { status };
-    if (table === "posts" && status === "published") patch.published_at = new Date().toISOString();
-    const { error } = await supabase.from(table).update(patch).eq("id", id);
+    if (table === "posts" && status === "published") patch["published_at"] = new Date().toISOString();
+    const { error } = await supabase.from(table).update(patch as never).eq("id", id);
     if (error) throw error;
   },
 };
