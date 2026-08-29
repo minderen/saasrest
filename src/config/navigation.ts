@@ -62,6 +62,10 @@ export type PanelNavItem = {
     | "/panel/plugins"
     | "/panel/languages"
     | "/panel/translations"
+    | "/panel/brand"
+    | "/panel/qr-menu"
+    | "/panel/localization"
+    | "/panel/addons"
     | "/panel/website"
     | "/panel/menu"
     | "/panel/menus"
@@ -140,6 +144,13 @@ export const panelNav: PanelNavItem[] = [
   { to: "/panel/faqs", label: "SSS", icon: FileText, scope: "super", group: "landing" },
 
   {
+    to: "/panel/brand",
+    label: "Marka bilgileri",
+    icon: Building2,
+    scope: "tenant",
+    group: "tenant",
+  },
+  {
     to: "/panel/website",
     label: "Website yönetimi",
     icon: Globe2,
@@ -160,7 +171,22 @@ export const panelNav: PanelNavItem[] = [
   { to: "/panel/posts", label: "Haberler", icon: Newspaper, scope: "tenant", group: "tenant" },
   { to: "/panel/media", label: "Medya", icon: Images, scope: "tenant", group: "tenant" },
   { to: "/panel/orders", label: "Siparişler", icon: ReceiptText, scope: "tenant", group: "tenant" },
+  {
+    to: "/panel/qr-menu",
+    label: "Online / QR menü",
+    icon: UtensilsCrossed,
+    scope: "tenant",
+    group: "tenant",
+  },
   { to: "/panel/seo", label: "SEO", icon: Search, scope: "tenant", group: "tenant" },
+  {
+    to: "/panel/localization",
+    label: "Dil içerikleri",
+    icon: Languages,
+    scope: "tenant",
+    group: "tenant",
+  },
+  { to: "/panel/addons", label: "Yetkili eklentiler", icon: Puzzle, scope: "tenant", group: "tenant" },
 
   { to: "/panel/themes", label: "Temalar", icon: Palette, scope: "super", group: "system" },
   { to: "/panel/plugins", label: "Eklentiler", icon: Puzzle, scope: "super", group: "system" },

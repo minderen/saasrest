@@ -106,6 +106,20 @@ export const resourceService = {
     }
   },
 
+  /** Draft / published / archived transition for content resources. */
+  async setStatus(resource: AdminResource, id: unknown, status: "draft" | "published" | "archived") {
+    const primaryKey = resource.primaryKey ?? "id";
+    const patch: ResourceRow = { status };
+    if (resource.table === "posts" && status === "published") {
+      patch["published_at"] = new Date().toISOString();
+    }
+    try {
+      await resourceRepository.update(resource.table, primaryKey, id, patch);
+    } catch (error) {
+      throw new Error(describeDatabaseError(error));
+    }
+  },
+
   async remove(resource: AdminResource, id: unknown) {
     const primaryKey = resource.primaryKey ?? "id";
     try {

@@ -53,6 +53,8 @@ export type AdminResource = {
   readOnly?: boolean;
   /** Disable row deletion only. */
   noDelete?: boolean;
+  /** Row has a draft/published/archived `status` column: enables status filter + quick publish. */
+  publishable?: boolean;
   filter?: Record<string, unknown>;
   searchColumns?: string[];
   columns: AdminColumn[];

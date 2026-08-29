@@ -15,11 +15,13 @@ import { Route as PanelRouteImport } from './routes/panel'
 import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
 import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelAddonsRouteImport } from './routes/panel.addons'
 import { Route as PanelAgentRouteImport } from './routes/panel.agent'
 import { Route as PanelAgentsRouteImport } from './routes/panel.agents'
 import { Route as PanelAnnouncementsRouteImport } from './routes/panel.announcements'
 import { Route as PanelAuditRouteImport } from './routes/panel.audit'
 import { Route as PanelBranchesRouteImport } from './routes/panel.branches'
+import { Route as PanelBrandRouteImport } from './routes/panel.brand'
 import { Route as PanelCampaignsRouteImport } from './routes/panel.campaigns'
 import { Route as PanelCategoriesRouteImport } from './routes/panel.categories'
 import { Route as PanelFaqsRouteImport } from './routes/panel.faqs'
@@ -27,6 +29,7 @@ import { Route as PanelFeaturesRouteImport } from './routes/panel.features'
 import { Route as PanelLandingRouteImport } from './routes/panel.landing'
 import { Route as PanelLanguagesRouteImport } from './routes/panel.languages'
 import { Route as PanelLeadsRouteImport } from './routes/panel.leads'
+import { Route as PanelLocalizationRouteImport } from './routes/panel.localization'
 import { Route as PanelLogsRouteImport } from './routes/panel.logs'
 import { Route as PanelMediaRouteImport } from './routes/panel.media'
 import { Route as PanelMenuRouteImport } from './routes/panel.menu'
@@ -37,6 +40,7 @@ import { Route as PanelPermissionsRouteImport } from './routes/panel.permissions
 import { Route as PanelPlansRouteImport } from './routes/panel.plans'
 import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
 import { Route as PanelPostsRouteImport } from './routes/panel.posts'
+import { Route as PanelQrMenuRouteImport } from './routes/panel.qr-menu'
 import { Route as PanelRolesRouteImport } from './routes/panel.roles'
 import { Route as PanelSeoRouteImport } from './routes/panel.seo'
 import { Route as PanelSettingsRouteImport } from './routes/panel.settings'
@@ -79,6 +83,11 @@ const PanelIndexRoute = PanelIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelAddonsRoute = PanelAddonsRouteImport.update({
+  id: '/addons',
+  path: '/addons',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelAgentRoute = PanelAgentRouteImport.update({
   id: '/agent',
   path: '/agent',
@@ -102,6 +111,11 @@ const PanelAuditRoute = PanelAuditRouteImport.update({
 const PanelBranchesRoute = PanelBranchesRouteImport.update({
   id: '/branches',
   path: '/branches',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelBrandRoute = PanelBrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelCampaignsRoute = PanelCampaignsRouteImport.update({
@@ -137,6 +151,11 @@ const PanelLanguagesRoute = PanelLanguagesRouteImport.update({
 const PanelLeadsRoute = PanelLeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelLocalizationRoute = PanelLocalizationRouteImport.update({
+  id: '/localization',
+  path: '/localization',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelLogsRoute = PanelLogsRouteImport.update({
@@ -187,6 +206,11 @@ const PanelPluginsRoute = PanelPluginsRouteImport.update({
 const PanelPostsRoute = PanelPostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelQrMenuRoute = PanelQrMenuRouteImport.update({
+  id: '/qr-menu',
+  path: '/qr-menu',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelRolesRoute = PanelRolesRouteImport.update({
@@ -250,11 +274,13 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/addons': typeof PanelAddonsRoute
   '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
   '/panel/branches': typeof PanelBranchesRoute
+  '/panel/brand': typeof PanelBrandRoute
   '/panel/campaigns': typeof PanelCampaignsRoute
   '/panel/categories': typeof PanelCategoriesRoute
   '/panel/faqs': typeof PanelFaqsRoute
@@ -262,6 +288,7 @@ export interface FileRoutesByFullPath {
   '/panel/landing': typeof PanelLandingRoute
   '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/localization': typeof PanelLocalizationRoute
   '/panel/logs': typeof PanelLogsRoute
   '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
@@ -272,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
+  '/panel/qr-menu': typeof PanelQrMenuRoute
   '/panel/roles': typeof PanelRolesRoute
   '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
@@ -290,11 +318,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/addons': typeof PanelAddonsRoute
   '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
   '/panel/branches': typeof PanelBranchesRoute
+  '/panel/brand': typeof PanelBrandRoute
   '/panel/campaigns': typeof PanelCampaignsRoute
   '/panel/categories': typeof PanelCategoriesRoute
   '/panel/faqs': typeof PanelFaqsRoute
@@ -302,6 +332,7 @@ export interface FileRoutesByTo {
   '/panel/landing': typeof PanelLandingRoute
   '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/localization': typeof PanelLocalizationRoute
   '/panel/logs': typeof PanelLogsRoute
   '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
@@ -312,6 +343,7 @@ export interface FileRoutesByTo {
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
+  '/panel/qr-menu': typeof PanelQrMenuRoute
   '/panel/roles': typeof PanelRolesRoute
   '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
@@ -332,11 +364,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/addons': typeof PanelAddonsRoute
   '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
   '/panel/branches': typeof PanelBranchesRoute
+  '/panel/brand': typeof PanelBrandRoute
   '/panel/campaigns': typeof PanelCampaignsRoute
   '/panel/categories': typeof PanelCategoriesRoute
   '/panel/faqs': typeof PanelFaqsRoute
@@ -344,6 +378,7 @@ export interface FileRoutesById {
   '/panel/landing': typeof PanelLandingRoute
   '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/localization': typeof PanelLocalizationRoute
   '/panel/logs': typeof PanelLogsRoute
   '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
@@ -354,6 +389,7 @@ export interface FileRoutesById {
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
   '/panel/posts': typeof PanelPostsRoute
+  '/panel/qr-menu': typeof PanelQrMenuRoute
   '/panel/roles': typeof PanelRolesRoute
   '/panel/seo': typeof PanelSeoRoute
   '/panel/settings': typeof PanelSettingsRoute
@@ -375,11 +411,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/addons'
     | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
     | '/panel/audit'
     | '/panel/branches'
+    | '/panel/brand'
     | '/panel/campaigns'
     | '/panel/categories'
     | '/panel/faqs'
@@ -387,6 +425,7 @@ export interface FileRouteTypes {
     | '/panel/landing'
     | '/panel/languages'
     | '/panel/leads'
+    | '/panel/localization'
     | '/panel/logs'
     | '/panel/media'
     | '/panel/menu'
@@ -397,6 +436,7 @@ export interface FileRouteTypes {
     | '/panel/plans'
     | '/panel/plugins'
     | '/panel/posts'
+    | '/panel/qr-menu'
     | '/panel/roles'
     | '/panel/seo'
     | '/panel/settings'
@@ -415,11 +455,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/$tenant/menu'
+    | '/panel/addons'
     | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
     | '/panel/audit'
     | '/panel/branches'
+    | '/panel/brand'
     | '/panel/campaigns'
     | '/panel/categories'
     | '/panel/faqs'
@@ -427,6 +469,7 @@ export interface FileRouteTypes {
     | '/panel/landing'
     | '/panel/languages'
     | '/panel/leads'
+    | '/panel/localization'
     | '/panel/logs'
     | '/panel/media'
     | '/panel/menu'
@@ -437,6 +480,7 @@ export interface FileRouteTypes {
     | '/panel/plans'
     | '/panel/plugins'
     | '/panel/posts'
+    | '/panel/qr-menu'
     | '/panel/roles'
     | '/panel/seo'
     | '/panel/settings'
@@ -456,11 +500,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/addons'
     | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
     | '/panel/audit'
     | '/panel/branches'
+    | '/panel/brand'
     | '/panel/campaigns'
     | '/panel/categories'
     | '/panel/faqs'
@@ -468,6 +514,7 @@ export interface FileRouteTypes {
     | '/panel/landing'
     | '/panel/languages'
     | '/panel/leads'
+    | '/panel/localization'
     | '/panel/logs'
     | '/panel/media'
     | '/panel/menu'
@@ -478,6 +525,7 @@ export interface FileRouteTypes {
     | '/panel/plans'
     | '/panel/plugins'
     | '/panel/posts'
+    | '/panel/qr-menu'
     | '/panel/roles'
     | '/panel/seo'
     | '/panel/settings'
@@ -545,6 +593,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelIndexRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/addons': {
+      id: '/panel/addons'
+      path: '/addons'
+      fullPath: '/panel/addons'
+      preLoaderRoute: typeof PanelAddonsRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/agent': {
       id: '/panel/agent'
       path: '/agent'
@@ -578,6 +633,13 @@ declare module '@tanstack/react-router' {
       path: '/branches'
       fullPath: '/panel/branches'
       preLoaderRoute: typeof PanelBranchesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/brand': {
+      id: '/panel/brand'
+      path: '/brand'
+      fullPath: '/panel/brand'
+      preLoaderRoute: typeof PanelBrandRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/campaigns': {
@@ -627,6 +689,13 @@ declare module '@tanstack/react-router' {
       path: '/leads'
       fullPath: '/panel/leads'
       preLoaderRoute: typeof PanelLeadsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/localization': {
+      id: '/panel/localization'
+      path: '/localization'
+      fullPath: '/panel/localization'
+      preLoaderRoute: typeof PanelLocalizationRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/logs': {
@@ -697,6 +766,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/panel/posts'
       preLoaderRoute: typeof PanelPostsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/qr-menu': {
+      id: '/panel/qr-menu'
+      path: '/qr-menu'
+      fullPath: '/panel/qr-menu'
+      preLoaderRoute: typeof PanelQrMenuRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/roles': {
@@ -780,11 +856,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface PanelRouteChildren {
+  PanelAddonsRoute: typeof PanelAddonsRoute
   PanelAgentRoute: typeof PanelAgentRoute
   PanelAgentsRoute: typeof PanelAgentsRoute
   PanelAnnouncementsRoute: typeof PanelAnnouncementsRoute
   PanelAuditRoute: typeof PanelAuditRoute
   PanelBranchesRoute: typeof PanelBranchesRoute
+  PanelBrandRoute: typeof PanelBrandRoute
   PanelCampaignsRoute: typeof PanelCampaignsRoute
   PanelCategoriesRoute: typeof PanelCategoriesRoute
   PanelFaqsRoute: typeof PanelFaqsRoute
@@ -792,6 +870,7 @@ interface PanelRouteChildren {
   PanelLandingRoute: typeof PanelLandingRoute
   PanelLanguagesRoute: typeof PanelLanguagesRoute
   PanelLeadsRoute: typeof PanelLeadsRoute
+  PanelLocalizationRoute: typeof PanelLocalizationRoute
   PanelLogsRoute: typeof PanelLogsRoute
   PanelMediaRoute: typeof PanelMediaRoute
   PanelMenuRoute: typeof PanelMenuRoute
@@ -802,6 +881,7 @@ interface PanelRouteChildren {
   PanelPlansRoute: typeof PanelPlansRoute
   PanelPluginsRoute: typeof PanelPluginsRoute
   PanelPostsRoute: typeof PanelPostsRoute
+  PanelQrMenuRoute: typeof PanelQrMenuRoute
   PanelRolesRoute: typeof PanelRolesRoute
   PanelSeoRoute: typeof PanelSeoRoute
   PanelSettingsRoute: typeof PanelSettingsRoute
@@ -817,11 +897,13 @@ interface PanelRouteChildren {
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelAddonsRoute: PanelAddonsRoute,
   PanelAgentRoute: PanelAgentRoute,
   PanelAgentsRoute: PanelAgentsRoute,
   PanelAnnouncementsRoute: PanelAnnouncementsRoute,
   PanelAuditRoute: PanelAuditRoute,
   PanelBranchesRoute: PanelBranchesRoute,
+  PanelBrandRoute: PanelBrandRoute,
   PanelCampaignsRoute: PanelCampaignsRoute,
   PanelCategoriesRoute: PanelCategoriesRoute,
   PanelFaqsRoute: PanelFaqsRoute,
@@ -829,6 +911,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelLandingRoute: PanelLandingRoute,
   PanelLanguagesRoute: PanelLanguagesRoute,
   PanelLeadsRoute: PanelLeadsRoute,
+  PanelLocalizationRoute: PanelLocalizationRoute,
   PanelLogsRoute: PanelLogsRoute,
   PanelMediaRoute: PanelMediaRoute,
   PanelMenuRoute: PanelMenuRoute,
@@ -839,6 +922,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelPlansRoute: PanelPlansRoute,
   PanelPluginsRoute: PanelPluginsRoute,
   PanelPostsRoute: PanelPostsRoute,
+  PanelQrMenuRoute: PanelQrMenuRoute,
   PanelRolesRoute: PanelRolesRoute,
   PanelSeoRoute: PanelSeoRoute,
   PanelSettingsRoute: PanelSettingsRoute,
