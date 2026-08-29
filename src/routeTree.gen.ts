@@ -15,6 +15,7 @@ import { Route as PanelRouteImport } from './routes/panel'
 import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
 import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelAgentRouteImport } from './routes/panel.agent'
 import { Route as PanelAgentsRouteImport } from './routes/panel.agents'
 import { Route as PanelAnnouncementsRouteImport } from './routes/panel.announcements'
 import { Route as PanelAuditRouteImport } from './routes/panel.audit'
@@ -46,6 +47,7 @@ import { Route as PanelTranslationsRouteImport } from './routes/panel.translatio
 import { Route as PanelUsageRouteImport } from './routes/panel.usage'
 import { Route as PanelUsersRouteImport } from './routes/panel.users'
 import { Route as PanelWebsiteRouteImport } from './routes/panel.website'
+import { Route as PanelTenantTenantIdRouteImport } from './routes/panel.tenant.$tenantId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -75,6 +77,11 @@ const TenantMenuRoute = TenantMenuRouteImport.update({
 const PanelIndexRoute = PanelIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelAgentRoute = PanelAgentRouteImport.update({
+  id: '/agent',
+  path: '/agent',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelAgentsRoute = PanelAgentsRouteImport.update({
@@ -232,12 +239,18 @@ const PanelWebsiteRoute = PanelWebsiteRouteImport.update({
   path: '/website',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelTenantTenantIdRoute = PanelTenantTenantIdRouteImport.update({
+  id: '/tenant/$tenantId',
+  path: '/tenant/$tenantId',
+  getParentRoute: () => PanelRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
@@ -271,11 +284,13 @@ export interface FileRoutesByFullPath {
   '/panel/website': typeof PanelWebsiteRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
+  '/panel/tenant/$tenantId': typeof PanelTenantTenantIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
@@ -309,6 +324,7 @@ export interface FileRoutesByTo {
   '/panel/website': typeof PanelWebsiteRoute
   '/$tenant': typeof TenantIndexRoute
   '/panel': typeof PanelIndexRoute
+  '/panel/tenant/$tenantId': typeof PanelTenantTenantIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -316,6 +332,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/agent': typeof PanelAgentRoute
   '/panel/agents': typeof PanelAgentsRoute
   '/panel/announcements': typeof PanelAnnouncementsRoute
   '/panel/audit': typeof PanelAuditRoute
@@ -349,6 +366,7 @@ export interface FileRoutesById {
   '/panel/website': typeof PanelWebsiteRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
+  '/panel/tenant/$tenantId': typeof PanelTenantTenantIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -357,6 +375,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
     | '/panel/audit'
@@ -390,11 +409,13 @@ export interface FileRouteTypes {
     | '/panel/website'
     | '/$tenant/'
     | '/panel/'
+    | '/panel/tenant/$tenantId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/$tenant/menu'
+    | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
     | '/panel/audit'
@@ -428,12 +449,14 @@ export interface FileRouteTypes {
     | '/panel/website'
     | '/$tenant'
     | '/panel'
+    | '/panel/tenant/$tenantId'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/agent'
     | '/panel/agents'
     | '/panel/announcements'
     | '/panel/audit'
@@ -467,6 +490,7 @@ export interface FileRouteTypes {
     | '/panel/website'
     | '/$tenant/'
     | '/panel/'
+    | '/panel/tenant/$tenantId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -519,6 +543,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/panel/'
       preLoaderRoute: typeof PanelIndexRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/agent': {
+      id: '/panel/agent'
+      path: '/agent'
+      fullPath: '/panel/agent'
+      preLoaderRoute: typeof PanelAgentRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/agents': {
@@ -738,10 +769,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelWebsiteRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/tenant/$tenantId': {
+      id: '/panel/tenant/$tenantId'
+      path: '/tenant/$tenantId'
+      fullPath: '/panel/tenant/$tenantId'
+      preLoaderRoute: typeof PanelTenantTenantIdRouteImport
+      parentRoute: typeof PanelRoute
+    }
   }
 }
 
 interface PanelRouteChildren {
+  PanelAgentRoute: typeof PanelAgentRoute
   PanelAgentsRoute: typeof PanelAgentsRoute
   PanelAnnouncementsRoute: typeof PanelAnnouncementsRoute
   PanelAuditRoute: typeof PanelAuditRoute
@@ -774,9 +813,11 @@ interface PanelRouteChildren {
   PanelUsersRoute: typeof PanelUsersRoute
   PanelWebsiteRoute: typeof PanelWebsiteRoute
   PanelIndexRoute: typeof PanelIndexRoute
+  PanelTenantTenantIdRoute: typeof PanelTenantTenantIdRoute
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelAgentRoute: PanelAgentRoute,
   PanelAgentsRoute: PanelAgentsRoute,
   PanelAnnouncementsRoute: PanelAnnouncementsRoute,
   PanelAuditRoute: PanelAuditRoute,
@@ -809,6 +850,7 @@ const PanelRouteChildren: PanelRouteChildren = {
   PanelUsersRoute: PanelUsersRoute,
   PanelWebsiteRoute: PanelWebsiteRoute,
   PanelIndexRoute: PanelIndexRoute,
+  PanelTenantTenantIdRoute: PanelTenantTenantIdRoute,
 }
 
 const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
