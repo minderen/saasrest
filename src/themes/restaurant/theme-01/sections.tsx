@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Award, Clock, MapPin, Navigation, Phone, Eye } from "lucide-react";
+import { Award as AwardIcon, Clock, MapPin, Navigation, Phone, Eye } from "lucide-react";
 
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Lightbox } from "@/components/shared/lightbox";
@@ -67,7 +67,7 @@ export function AwardsSection({
                 onClick={() => setActive(award)}
                 className="surface-card h-full w-full p-6 text-left transition-colors hover:border-primary/40"
               >
-                <Award className="size-6 text-primary" aria-hidden />
+                <AwardIcon className="size-6 text-primary" aria-hidden />
                 <h3 className="mt-3 text-base font-semibold">{award.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{award.description}</p>
               </button>
