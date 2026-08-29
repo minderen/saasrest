@@ -15,14 +15,37 @@ import { Route as PanelRouteImport } from './routes/panel'
 import { Route as TenantIndexRouteImport } from './routes/$tenant.index'
 import { Route as TenantMenuRouteImport } from './routes/$tenant.menu'
 import { Route as PanelIndexRouteImport } from './routes/panel.index'
+import { Route as PanelAgentsRouteImport } from './routes/panel.agents'
+import { Route as PanelAnnouncementsRouteImport } from './routes/panel.announcements'
+import { Route as PanelAuditRouteImport } from './routes/panel.audit'
+import { Route as PanelBranchesRouteImport } from './routes/panel.branches'
+import { Route as PanelCampaignsRouteImport } from './routes/panel.campaigns'
+import { Route as PanelCategoriesRouteImport } from './routes/panel.categories'
+import { Route as PanelFaqsRouteImport } from './routes/panel.faqs'
+import { Route as PanelFeaturesRouteImport } from './routes/panel.features'
+import { Route as PanelLandingRouteImport } from './routes/panel.landing'
+import { Route as PanelLanguagesRouteImport } from './routes/panel.languages'
 import { Route as PanelLeadsRouteImport } from './routes/panel.leads'
+import { Route as PanelLogsRouteImport } from './routes/panel.logs'
+import { Route as PanelMediaRouteImport } from './routes/panel.media'
 import { Route as PanelMenuRouteImport } from './routes/panel.menu'
+import { Route as PanelMenusRouteImport } from './routes/panel.menus'
+import { Route as PanelNotificationsRouteImport } from './routes/panel.notifications'
 import { Route as PanelOrdersRouteImport } from './routes/panel.orders'
+import { Route as PanelPermissionsRouteImport } from './routes/panel.permissions'
 import { Route as PanelPlansRouteImport } from './routes/panel.plans'
 import { Route as PanelPluginsRouteImport } from './routes/panel.plugins'
+import { Route as PanelPostsRouteImport } from './routes/panel.posts'
+import { Route as PanelRolesRouteImport } from './routes/panel.roles'
+import { Route as PanelSeoRouteImport } from './routes/panel.seo'
+import { Route as PanelSettingsRouteImport } from './routes/panel.settings'
 import { Route as PanelSubscriptionsRouteImport } from './routes/panel.subscriptions'
 import { Route as PanelTenantsRouteImport } from './routes/panel.tenants'
 import { Route as PanelThemesRouteImport } from './routes/panel.themes'
+import { Route as PanelTranslationsRouteImport } from './routes/panel.translations'
+import { Route as PanelUsageRouteImport } from './routes/panel.usage'
+import { Route as PanelUsersRouteImport } from './routes/panel.users'
+import { Route as PanelWebsiteRouteImport } from './routes/panel.website'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,9 +77,69 @@ const PanelIndexRoute = PanelIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelAgentsRoute = PanelAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelAnnouncementsRoute = PanelAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelAuditRoute = PanelAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelBranchesRoute = PanelBranchesRouteImport.update({
+  id: '/branches',
+  path: '/branches',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelCampaignsRoute = PanelCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelCategoriesRoute = PanelCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelFaqsRoute = PanelFaqsRouteImport.update({
+  id: '/faqs',
+  path: '/faqs',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelFeaturesRoute = PanelFeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelLandingRoute = PanelLandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelLanguagesRoute = PanelLanguagesRouteImport.update({
+  id: '/languages',
+  path: '/languages',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelLeadsRoute = PanelLeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelLogsRoute = PanelLogsRouteImport.update({
+  id: '/logs',
+  path: '/logs',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelMediaRoute = PanelMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelMenuRoute = PanelMenuRouteImport.update({
@@ -64,9 +147,24 @@ const PanelMenuRoute = PanelMenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelMenusRoute = PanelMenusRouteImport.update({
+  id: '/menus',
+  path: '/menus',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelNotificationsRoute = PanelNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => PanelRoute,
+} as any)
 const PanelOrdersRoute = PanelOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPermissionsRoute = PanelPermissionsRouteImport.update({
+  id: '/permissions',
+  path: '/permissions',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelPlansRoute = PanelPlansRouteImport.update({
@@ -77,6 +175,26 @@ const PanelPlansRoute = PanelPlansRouteImport.update({
 const PanelPluginsRoute = PanelPluginsRouteImport.update({
   id: '/plugins',
   path: '/plugins',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelPostsRoute = PanelPostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelRolesRoute = PanelRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelSeoRoute = PanelSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelSettingsRoute = PanelSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => PanelRoute,
 } as any)
 const PanelSubscriptionsRoute = PanelSubscriptionsRouteImport.update({
@@ -94,20 +212,63 @@ const PanelThemesRoute = PanelThemesRouteImport.update({
   path: '/themes',
   getParentRoute: () => PanelRoute,
 } as any)
+const PanelTranslationsRoute = PanelTranslationsRouteImport.update({
+  id: '/translations',
+  path: '/translations',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelUsageRoute = PanelUsageRouteImport.update({
+  id: '/usage',
+  path: '/usage',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelUsersRoute = PanelUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelWebsiteRoute = PanelWebsiteRouteImport.update({
+  id: '/website',
+  path: '/website',
+  getParentRoute: () => PanelRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/agents': typeof PanelAgentsRoute
+  '/panel/announcements': typeof PanelAnnouncementsRoute
+  '/panel/audit': typeof PanelAuditRoute
+  '/panel/branches': typeof PanelBranchesRoute
+  '/panel/campaigns': typeof PanelCampaignsRoute
+  '/panel/categories': typeof PanelCategoriesRoute
+  '/panel/faqs': typeof PanelFaqsRoute
+  '/panel/features': typeof PanelFeaturesRoute
+  '/panel/landing': typeof PanelLandingRoute
+  '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/logs': typeof PanelLogsRoute
+  '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
+  '/panel/menus': typeof PanelMenusRoute
+  '/panel/notifications': typeof PanelNotificationsRoute
   '/panel/orders': typeof PanelOrdersRoute
+  '/panel/permissions': typeof PanelPermissionsRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/posts': typeof PanelPostsRoute
+  '/panel/roles': typeof PanelRolesRoute
+  '/panel/seo': typeof PanelSeoRoute
+  '/panel/settings': typeof PanelSettingsRoute
   '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
+  '/panel/translations': typeof PanelTranslationsRoute
+  '/panel/usage': typeof PanelUsageRoute
+  '/panel/users': typeof PanelUsersRoute
+  '/panel/website': typeof PanelWebsiteRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
 }
@@ -115,14 +276,37 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/agents': typeof PanelAgentsRoute
+  '/panel/announcements': typeof PanelAnnouncementsRoute
+  '/panel/audit': typeof PanelAuditRoute
+  '/panel/branches': typeof PanelBranchesRoute
+  '/panel/campaigns': typeof PanelCampaignsRoute
+  '/panel/categories': typeof PanelCategoriesRoute
+  '/panel/faqs': typeof PanelFaqsRoute
+  '/panel/features': typeof PanelFeaturesRoute
+  '/panel/landing': typeof PanelLandingRoute
+  '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/logs': typeof PanelLogsRoute
+  '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
+  '/panel/menus': typeof PanelMenusRoute
+  '/panel/notifications': typeof PanelNotificationsRoute
   '/panel/orders': typeof PanelOrdersRoute
+  '/panel/permissions': typeof PanelPermissionsRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/posts': typeof PanelPostsRoute
+  '/panel/roles': typeof PanelRolesRoute
+  '/panel/seo': typeof PanelSeoRoute
+  '/panel/settings': typeof PanelSettingsRoute
   '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
+  '/panel/translations': typeof PanelTranslationsRoute
+  '/panel/usage': typeof PanelUsageRoute
+  '/panel/users': typeof PanelUsersRoute
+  '/panel/website': typeof PanelWebsiteRoute
   '/$tenant': typeof TenantIndexRoute
   '/panel': typeof PanelIndexRoute
 }
@@ -132,14 +316,37 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/panel': typeof PanelRouteWithChildren
   '/$tenant/menu': typeof TenantMenuRoute
+  '/panel/agents': typeof PanelAgentsRoute
+  '/panel/announcements': typeof PanelAnnouncementsRoute
+  '/panel/audit': typeof PanelAuditRoute
+  '/panel/branches': typeof PanelBranchesRoute
+  '/panel/campaigns': typeof PanelCampaignsRoute
+  '/panel/categories': typeof PanelCategoriesRoute
+  '/panel/faqs': typeof PanelFaqsRoute
+  '/panel/features': typeof PanelFeaturesRoute
+  '/panel/landing': typeof PanelLandingRoute
+  '/panel/languages': typeof PanelLanguagesRoute
   '/panel/leads': typeof PanelLeadsRoute
+  '/panel/logs': typeof PanelLogsRoute
+  '/panel/media': typeof PanelMediaRoute
   '/panel/menu': typeof PanelMenuRoute
+  '/panel/menus': typeof PanelMenusRoute
+  '/panel/notifications': typeof PanelNotificationsRoute
   '/panel/orders': typeof PanelOrdersRoute
+  '/panel/permissions': typeof PanelPermissionsRoute
   '/panel/plans': typeof PanelPlansRoute
   '/panel/plugins': typeof PanelPluginsRoute
+  '/panel/posts': typeof PanelPostsRoute
+  '/panel/roles': typeof PanelRolesRoute
+  '/panel/seo': typeof PanelSeoRoute
+  '/panel/settings': typeof PanelSettingsRoute
   '/panel/subscriptions': typeof PanelSubscriptionsRoute
   '/panel/tenants': typeof PanelTenantsRoute
   '/panel/themes': typeof PanelThemesRoute
+  '/panel/translations': typeof PanelTranslationsRoute
+  '/panel/usage': typeof PanelUsageRoute
+  '/panel/users': typeof PanelUsersRoute
+  '/panel/website': typeof PanelWebsiteRoute
   '/$tenant/': typeof TenantIndexRoute
   '/panel/': typeof PanelIndexRoute
 }
@@ -150,14 +357,37 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/agents'
+    | '/panel/announcements'
+    | '/panel/audit'
+    | '/panel/branches'
+    | '/panel/campaigns'
+    | '/panel/categories'
+    | '/panel/faqs'
+    | '/panel/features'
+    | '/panel/landing'
+    | '/panel/languages'
     | '/panel/leads'
+    | '/panel/logs'
+    | '/panel/media'
     | '/panel/menu'
+    | '/panel/menus'
+    | '/panel/notifications'
     | '/panel/orders'
+    | '/panel/permissions'
     | '/panel/plans'
     | '/panel/plugins'
+    | '/panel/posts'
+    | '/panel/roles'
+    | '/panel/seo'
+    | '/panel/settings'
     | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
+    | '/panel/translations'
+    | '/panel/usage'
+    | '/panel/users'
+    | '/panel/website'
     | '/$tenant/'
     | '/panel/'
   fileRoutesByTo: FileRoutesByTo
@@ -165,14 +395,37 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/$tenant/menu'
+    | '/panel/agents'
+    | '/panel/announcements'
+    | '/panel/audit'
+    | '/panel/branches'
+    | '/panel/campaigns'
+    | '/panel/categories'
+    | '/panel/faqs'
+    | '/panel/features'
+    | '/panel/landing'
+    | '/panel/languages'
     | '/panel/leads'
+    | '/panel/logs'
+    | '/panel/media'
     | '/panel/menu'
+    | '/panel/menus'
+    | '/panel/notifications'
     | '/panel/orders'
+    | '/panel/permissions'
     | '/panel/plans'
     | '/panel/plugins'
+    | '/panel/posts'
+    | '/panel/roles'
+    | '/panel/seo'
+    | '/panel/settings'
     | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
+    | '/panel/translations'
+    | '/panel/usage'
+    | '/panel/users'
+    | '/panel/website'
     | '/$tenant'
     | '/panel'
   id:
@@ -181,14 +434,37 @@ export interface FileRouteTypes {
     | '/auth'
     | '/panel'
     | '/$tenant/menu'
+    | '/panel/agents'
+    | '/panel/announcements'
+    | '/panel/audit'
+    | '/panel/branches'
+    | '/panel/campaigns'
+    | '/panel/categories'
+    | '/panel/faqs'
+    | '/panel/features'
+    | '/panel/landing'
+    | '/panel/languages'
     | '/panel/leads'
+    | '/panel/logs'
+    | '/panel/media'
     | '/panel/menu'
+    | '/panel/menus'
+    | '/panel/notifications'
     | '/panel/orders'
+    | '/panel/permissions'
     | '/panel/plans'
     | '/panel/plugins'
+    | '/panel/posts'
+    | '/panel/roles'
+    | '/panel/seo'
+    | '/panel/settings'
     | '/panel/subscriptions'
     | '/panel/tenants'
     | '/panel/themes'
+    | '/panel/translations'
+    | '/panel/usage'
+    | '/panel/users'
+    | '/panel/website'
     | '/$tenant/'
     | '/panel/'
   fileRoutesById: FileRoutesById
@@ -245,11 +521,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelIndexRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/agents': {
+      id: '/panel/agents'
+      path: '/agents'
+      fullPath: '/panel/agents'
+      preLoaderRoute: typeof PanelAgentsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/announcements': {
+      id: '/panel/announcements'
+      path: '/announcements'
+      fullPath: '/panel/announcements'
+      preLoaderRoute: typeof PanelAnnouncementsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/audit': {
+      id: '/panel/audit'
+      path: '/audit'
+      fullPath: '/panel/audit'
+      preLoaderRoute: typeof PanelAuditRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/branches': {
+      id: '/panel/branches'
+      path: '/branches'
+      fullPath: '/panel/branches'
+      preLoaderRoute: typeof PanelBranchesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/campaigns': {
+      id: '/panel/campaigns'
+      path: '/campaigns'
+      fullPath: '/panel/campaigns'
+      preLoaderRoute: typeof PanelCampaignsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/categories': {
+      id: '/panel/categories'
+      path: '/categories'
+      fullPath: '/panel/categories'
+      preLoaderRoute: typeof PanelCategoriesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/faqs': {
+      id: '/panel/faqs'
+      path: '/faqs'
+      fullPath: '/panel/faqs'
+      preLoaderRoute: typeof PanelFaqsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/features': {
+      id: '/panel/features'
+      path: '/features'
+      fullPath: '/panel/features'
+      preLoaderRoute: typeof PanelFeaturesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/landing': {
+      id: '/panel/landing'
+      path: '/landing'
+      fullPath: '/panel/landing'
+      preLoaderRoute: typeof PanelLandingRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/languages': {
+      id: '/panel/languages'
+      path: '/languages'
+      fullPath: '/panel/languages'
+      preLoaderRoute: typeof PanelLanguagesRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/leads': {
       id: '/panel/leads'
       path: '/leads'
       fullPath: '/panel/leads'
       preLoaderRoute: typeof PanelLeadsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/logs': {
+      id: '/panel/logs'
+      path: '/logs'
+      fullPath: '/panel/logs'
+      preLoaderRoute: typeof PanelLogsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/media': {
+      id: '/panel/media'
+      path: '/media'
+      fullPath: '/panel/media'
+      preLoaderRoute: typeof PanelMediaRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/menu': {
@@ -259,11 +619,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelMenuRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/menus': {
+      id: '/panel/menus'
+      path: '/menus'
+      fullPath: '/panel/menus'
+      preLoaderRoute: typeof PanelMenusRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/notifications': {
+      id: '/panel/notifications'
+      path: '/notifications'
+      fullPath: '/panel/notifications'
+      preLoaderRoute: typeof PanelNotificationsRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/panel/orders': {
       id: '/panel/orders'
       path: '/orders'
       fullPath: '/panel/orders'
       preLoaderRoute: typeof PanelOrdersRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/permissions': {
+      id: '/panel/permissions'
+      path: '/permissions'
+      fullPath: '/panel/permissions'
+      preLoaderRoute: typeof PanelPermissionsRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/plans': {
@@ -278,6 +659,34 @@ declare module '@tanstack/react-router' {
       path: '/plugins'
       fullPath: '/panel/plugins'
       preLoaderRoute: typeof PanelPluginsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/posts': {
+      id: '/panel/posts'
+      path: '/posts'
+      fullPath: '/panel/posts'
+      preLoaderRoute: typeof PanelPostsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/roles': {
+      id: '/panel/roles'
+      path: '/roles'
+      fullPath: '/panel/roles'
+      preLoaderRoute: typeof PanelRolesRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/seo': {
+      id: '/panel/seo'
+      path: '/seo'
+      fullPath: '/panel/seo'
+      preLoaderRoute: typeof PanelSeoRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/settings': {
+      id: '/panel/settings'
+      path: '/settings'
+      fullPath: '/panel/settings'
+      preLoaderRoute: typeof PanelSettingsRouteImport
       parentRoute: typeof PanelRoute
     }
     '/panel/subscriptions': {
@@ -301,30 +710,104 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelThemesRouteImport
       parentRoute: typeof PanelRoute
     }
+    '/panel/translations': {
+      id: '/panel/translations'
+      path: '/translations'
+      fullPath: '/panel/translations'
+      preLoaderRoute: typeof PanelTranslationsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/usage': {
+      id: '/panel/usage'
+      path: '/usage'
+      fullPath: '/panel/usage'
+      preLoaderRoute: typeof PanelUsageRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/users': {
+      id: '/panel/users'
+      path: '/users'
+      fullPath: '/panel/users'
+      preLoaderRoute: typeof PanelUsersRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/website': {
+      id: '/panel/website'
+      path: '/website'
+      fullPath: '/panel/website'
+      preLoaderRoute: typeof PanelWebsiteRouteImport
+      parentRoute: typeof PanelRoute
+    }
   }
 }
 
 interface PanelRouteChildren {
+  PanelAgentsRoute: typeof PanelAgentsRoute
+  PanelAnnouncementsRoute: typeof PanelAnnouncementsRoute
+  PanelAuditRoute: typeof PanelAuditRoute
+  PanelBranchesRoute: typeof PanelBranchesRoute
+  PanelCampaignsRoute: typeof PanelCampaignsRoute
+  PanelCategoriesRoute: typeof PanelCategoriesRoute
+  PanelFaqsRoute: typeof PanelFaqsRoute
+  PanelFeaturesRoute: typeof PanelFeaturesRoute
+  PanelLandingRoute: typeof PanelLandingRoute
+  PanelLanguagesRoute: typeof PanelLanguagesRoute
   PanelLeadsRoute: typeof PanelLeadsRoute
+  PanelLogsRoute: typeof PanelLogsRoute
+  PanelMediaRoute: typeof PanelMediaRoute
   PanelMenuRoute: typeof PanelMenuRoute
+  PanelMenusRoute: typeof PanelMenusRoute
+  PanelNotificationsRoute: typeof PanelNotificationsRoute
   PanelOrdersRoute: typeof PanelOrdersRoute
+  PanelPermissionsRoute: typeof PanelPermissionsRoute
   PanelPlansRoute: typeof PanelPlansRoute
   PanelPluginsRoute: typeof PanelPluginsRoute
+  PanelPostsRoute: typeof PanelPostsRoute
+  PanelRolesRoute: typeof PanelRolesRoute
+  PanelSeoRoute: typeof PanelSeoRoute
+  PanelSettingsRoute: typeof PanelSettingsRoute
   PanelSubscriptionsRoute: typeof PanelSubscriptionsRoute
   PanelTenantsRoute: typeof PanelTenantsRoute
   PanelThemesRoute: typeof PanelThemesRoute
+  PanelTranslationsRoute: typeof PanelTranslationsRoute
+  PanelUsageRoute: typeof PanelUsageRoute
+  PanelUsersRoute: typeof PanelUsersRoute
+  PanelWebsiteRoute: typeof PanelWebsiteRoute
   PanelIndexRoute: typeof PanelIndexRoute
 }
 
 const PanelRouteChildren: PanelRouteChildren = {
+  PanelAgentsRoute: PanelAgentsRoute,
+  PanelAnnouncementsRoute: PanelAnnouncementsRoute,
+  PanelAuditRoute: PanelAuditRoute,
+  PanelBranchesRoute: PanelBranchesRoute,
+  PanelCampaignsRoute: PanelCampaignsRoute,
+  PanelCategoriesRoute: PanelCategoriesRoute,
+  PanelFaqsRoute: PanelFaqsRoute,
+  PanelFeaturesRoute: PanelFeaturesRoute,
+  PanelLandingRoute: PanelLandingRoute,
+  PanelLanguagesRoute: PanelLanguagesRoute,
   PanelLeadsRoute: PanelLeadsRoute,
+  PanelLogsRoute: PanelLogsRoute,
+  PanelMediaRoute: PanelMediaRoute,
   PanelMenuRoute: PanelMenuRoute,
+  PanelMenusRoute: PanelMenusRoute,
+  PanelNotificationsRoute: PanelNotificationsRoute,
   PanelOrdersRoute: PanelOrdersRoute,
+  PanelPermissionsRoute: PanelPermissionsRoute,
   PanelPlansRoute: PanelPlansRoute,
   PanelPluginsRoute: PanelPluginsRoute,
+  PanelPostsRoute: PanelPostsRoute,
+  PanelRolesRoute: PanelRolesRoute,
+  PanelSeoRoute: PanelSeoRoute,
+  PanelSettingsRoute: PanelSettingsRoute,
   PanelSubscriptionsRoute: PanelSubscriptionsRoute,
   PanelTenantsRoute: PanelTenantsRoute,
   PanelThemesRoute: PanelThemesRoute,
+  PanelTranslationsRoute: PanelTranslationsRoute,
+  PanelUsageRoute: PanelUsageRoute,
+  PanelUsersRoute: PanelUsersRoute,
+  PanelWebsiteRoute: PanelWebsiteRoute,
   PanelIndexRoute: PanelIndexRoute,
 }
 

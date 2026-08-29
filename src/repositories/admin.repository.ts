@@ -10,7 +10,9 @@ export const adminRepository = {
   async tenants() {
     const { data, error } = await supabase
       .from("tenants")
-      .select("id, name, slug, status, is_published, default_locale, website_theme, menu_theme, agent_id, plan_id, created_at")
+      .select(
+        "id, name, slug, status, is_published, default_locale, website_theme, menu_theme, agent_id, plan_id, created_at",
+      )
       .is("deleted_at", null)
       .order("created_at", { ascending: false });
     if (error) throw error;
@@ -30,7 +32,9 @@ export const adminRepository = {
   async plans() {
     const { data, error } = await supabase
       .from("plans")
-      .select("id, kind, slug, name, tagline, price_monthly, currency, features, limits, is_active, is_featured, sort_order")
+      .select(
+        "id, kind, slug, name, tagline, price_monthly, currency, features, limits, is_active, is_featured, sort_order",
+      )
       .order("sort_order");
     if (error) throw error;
     return data ?? [];
@@ -67,7 +71,9 @@ export const adminRepository = {
   async orders(tenantId?: string) {
     let query = supabase
       .from("orders")
-      .select("id, tenant_id, code, table_no, customer_name, customer_phone, total, currency, status, created_at, order_items(item_name, quantity, unit_price)")
+      .select(
+        "id, tenant_id, code, table_no, customer_name, customer_phone, total, currency, status, created_at, order_items(item_name, quantity, unit_price)",
+      )
       .order("created_at", { ascending: false })
       .limit(100);
     if (tenantId) query = query.eq("tenant_id", tenantId);
@@ -82,7 +88,10 @@ export const adminRepository = {
   },
 
   async setTenantPublished(id: string, isPublished: boolean) {
-    const { error } = await supabase.from("tenants").update({ is_published: isPublished }).eq("id", id);
+    const { error } = await supabase
+      .from("tenants")
+      .update({ is_published: isPublished })
+      .eq("id", id);
     if (error) throw error;
   },
 
@@ -107,10 +116,24 @@ export const adminRepository = {
   },
 
   async counts() {
-    const tables = ["tenants", "agents", "plans", "products", "menus", "orders", "leads"] as const;
+    const tables = [
+      "tenants",
+      "agents",
+      "profiles",
+      "plans",
+      "products",
+      "menus",
+      "branches",
+      "campaigns",
+      "posts",
+      "orders",
+      "leads",
+    ] as const;
     const results = await Promise.all(
       tables.map(async (table) => {
-        const { count, error } = await supabase.from(table).select("id", { count: "exact", head: true });
+        const { count, error } = await supabase
+          .from(table)
+          .select("id", { count: "exact", head: true });
         if (error) throw error;
         return [table, count ?? 0] as const;
       }),

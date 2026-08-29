@@ -11,7 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Lightbox } from "@/components/shared/lightbox";
 import { adminRepository, billingRepository, tenantContentRepository } from "@/repositories";
 import { UsageList } from "@/modules/billing";
@@ -48,7 +54,10 @@ function MenuAdminPage() {
   const [editing, setEditing] = useState<ProductRow | null>(null);
   const [open, setOpen] = useState(false);
 
-  const { data: tenants = [] } = useQuery({ queryKey: ["panel", "tenants"], queryFn: adminRepository.tenants });
+  const { data: tenants = [] } = useQuery({
+    queryKey: ["panel", "tenants"],
+    queryFn: adminRepository.tenants,
+  });
   useEffect(() => {
     if (!tenantId && tenants[0]) setTenantId(tenants[0].id);
   }, [tenants, tenantId]);
@@ -123,7 +132,9 @@ function MenuAdminPage() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">Menü yönetimi</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Ürünleri ekleyin, düzenleyin ve arşivleyin.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Ürünleri ekleyin, düzenleyin ve arşivleyin.
+          </p>
         </div>
         <div className="flex flex-wrap items-end gap-3">
           <div className="grid gap-2">
@@ -223,15 +234,32 @@ function MenuAdminPage() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="product-price">Fiyat</Label>
-            <Input id="product-price" name="price" type="number" min={0} step="0.01" defaultValue={editing?.price ?? 0} required />
+            <Input
+              id="product-price"
+              name="price"
+              type="number"
+              min={0}
+              step="0.01"
+              defaultValue={editing?.price ?? 0}
+              required
+            />
           </div>
           <div className="grid gap-2 sm:col-span-2">
             <Label htmlFor="product-short">Kısa açıklama</Label>
-            <Input id="product-short" name="short_description" defaultValue={editing?.short_description ?? ""} />
+            <Input
+              id="product-short"
+              name="short_description"
+              defaultValue={editing?.short_description ?? ""}
+            />
           </div>
           <div className="grid gap-2 sm:col-span-2">
             <Label htmlFor="product-description">Açıklama</Label>
-            <Textarea id="product-description" name="description" rows={4} defaultValue={editing?.description ?? ""} />
+            <Textarea
+              id="product-description"
+              name="description"
+              rows={4}
+              defaultValue={editing?.description ?? ""}
+            />
           </div>
           <div className="grid gap-2 sm:col-span-2">
             <Label htmlFor="product-image">Görsel adresi</Label>

@@ -19,10 +19,14 @@ const SCOPES: Record<string, string> = {
 
 function ThemesPage() {
   const queryClient = useQueryClient();
-  const { data: themes = [], isPending } = useQuery({ queryKey: ["panel", "themes"], queryFn: adminRepository.themes });
+  const { data: themes = [], isPending } = useQuery({
+    queryKey: ["panel", "themes"],
+    queryFn: adminRepository.themes,
+  });
 
   const toggle = useMutation({
-    mutationFn: ({ id, value }: { id: string; value: boolean }) => adminRepository.toggleTheme(id, value),
+    mutationFn: ({ id, value }: { id: string; value: boolean }) =>
+      adminRepository.toggleTheme(id, value),
     onSuccess: async () => {
       toast.success("Tema güncellendi");
       await queryClient.invalidateQueries({ queryKey: ["panel", "themes"] });

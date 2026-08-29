@@ -6,3 +6,5 @@ export { menuRepository } from "./menu.repository";
 export { languagesRepository, translationsRepository } from "./i18n.repository";
 export { authzRepository } from "./authz.repository";
 export { billingRepository } from "./billing.repository";
+export { resourceRepository } from "./resource.repository";
+export type { ResourceRow, ResourceListSpec } from "./resource.repository";

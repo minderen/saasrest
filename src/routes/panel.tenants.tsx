@@ -10,7 +10,14 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { adminRepository } from "@/repositories";
 import { formatDate } from "@/lib/format";
 
@@ -70,7 +77,9 @@ function TenantsPage() {
                   <TableCell className="text-muted-foreground">
                     {tenant.website_theme} / {tenant.menu_theme}
                   </TableCell>
-                  <TableCell className="text-muted-foreground">{formatDate(tenant.created_at)}</TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {formatDate(tenant.created_at)}
+                  </TableCell>
                   <TableCell>
                     <Switch
                       checked={tenant.is_published}

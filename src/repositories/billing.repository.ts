@@ -45,7 +45,9 @@ export const billingRepository = {
   },
 
   async tenantPlan(tenantId: string) {
-    const { data, error } = await supabase.rpc("tenant_effective_plan_id", { _tenant_id: tenantId });
+    const { data, error } = await supabase.rpc("tenant_effective_plan_id", {
+      _tenant_id: tenantId,
+    });
     if (error) throw error;
     return (data as string | null) ?? null;
   },

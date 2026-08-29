@@ -52,7 +52,9 @@ export const landingRepository = {
   async plans() {
     const { data, error } = await supabase
       .from("plans")
-      .select("id, kind, slug, name, tagline, price_monthly, price_yearly, currency, features, limits, is_featured, sort_order")
+      .select(
+        "id, kind, slug, name, tagline, price_monthly, price_yearly, currency, features, limits, is_featured, sort_order",
+      )
       .eq("is_active", true)
       .order("sort_order");
     if (error) throw error;

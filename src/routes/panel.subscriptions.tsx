@@ -5,7 +5,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { RequireAccess } from "@/modules/auth";
 import { UsageList } from "@/modules/billing";
@@ -35,19 +41,32 @@ function SubscriptionsPage() {
     queryKey: SUBS_KEY,
     queryFn: billingRepository.subscriptions,
   });
-  const { data: plans = [] } = useQuery({ queryKey: ["panel", "billing", "plans"], queryFn: () => billingRepository.plans() });
-  const { data: tenants = [] } = useQuery({ queryKey: ["panel", "tenants"], queryFn: adminRepository.tenants });
-  const { data: agents = [] } = useQuery({ queryKey: ["panel", "agents"], queryFn: adminRepository.agents });
+  const { data: plans = [] } = useQuery({
+    queryKey: ["panel", "billing", "plans"],
+    queryFn: () => billingRepository.plans(),
+  });
+  const { data: tenants = [] } = useQuery({
+    queryKey: ["panel", "tenants"],
+    queryFn: adminRepository.tenants,
+  });
+  const { data: agents = [] } = useQuery({
+    queryKey: ["panel", "agents"],
+    queryFn: adminRepository.agents,
+  });
 
   const { data: usage = [] } = useQuery({
     queryKey: ["panel", "billing", "usage", targetKind, targetId],
-    queryFn: () => (targetKind === "tenant" ? billingRepository.tenantUsage(targetId) : billingRepository.agentUsage(targetId)),
+    queryFn: () =>
+      targetKind === "tenant"
+        ? billingRepository.tenantUsage(targetId)
+        : billingRepository.agentUsage(targetId),
     enabled: Boolean(targetId),
   });
 
   const assign = useServerFn(createSubscription);
   const changeStatus = useServerFn(setSubscriptionStatus);
-  const fail = (error: unknown) => toast.error(error instanceof Error ? error.message : "İşlem başarısız");
+  const fail = (error: unknown) =>
+    toast.error(error instanceof Error ? error.message : "İşlem başarısız");
 
   const assignMutation = useMutation({
     mutationFn: () =>
@@ -82,8 +101,8 @@ function SubscriptionsPage() {
       <div>
         <h1 className="text-2xl font-semibold">Abonelikler</h1>
         <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-          Acente ve markalara plan atayın, plan değişikliği yapın veya aboneliği askıya alın. Kota kontrolleri atanan
-          plana göre veritabanında zorlanır.
+          Acente ve markalara plan atayın, plan değişikliği yapın veya aboneliği askıya alın. Kota
+          kontrolleri atanan plana göre veritabanında zorlanır.
         </p>
       </div>
 
@@ -150,7 +169,11 @@ function SubscriptionsPage() {
 
         <div className="flex flex-col gap-3">
           <h2 className="text-sm font-medium">Kullanım / kota</h2>
-          {targetId ? <UsageList rows={usage} /> : <p className="text-sm text-muted-foreground">Bir hedef seçin.</p>}
+          {targetId ? (
+            <UsageList rows={usage} />
+          ) : (
+            <p className="text-sm text-muted-foreground">Bir hedef seçin.</p>
+          )}
         </div>
       </section>
 
@@ -160,23 +183,32 @@ function SubscriptionsPage() {
           <p className="text-sm text-muted-foreground">Yükleniyor…</p>
         ) : (
           <ul className="flex flex-col gap-2">
-            {subscriptions.length === 0 && <li className="text-sm text-muted-foreground">Abonelik kaydı yok.</li>}
+            {subscriptions.length === 0 && (
+              <li className="text-sm text-muted-foreground">Abonelik kaydı yok.</li>
+            )}
             {subscriptions.map((sub) => (
-              <li key={sub.id} className="surface-card flex flex-wrap items-center justify-between gap-3 p-4">
+              <li
+                key={sub.id}
+                className="surface-card flex flex-wrap items-center justify-between gap-3 p-4"
+              >
                 <div>
                   <p className="font-medium">
                     {sub.tenants?.name ?? sub.agents?.name ?? "—"}{" "}
                     <span className="text-sm text-muted-foreground">· {sub.plans?.name}</span>
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {STATUS_LABELS[sub.status] ?? sub.status} · {new Date(sub.started_at).toLocaleDateString("tr-TR")}
+                    {STATUS_LABELS[sub.status] ?? sub.status} ·{" "}
+                    {new Date(sub.started_at).toLocaleDateString("tr-TR")}
                     {sub.ends_at ? ` – ${new Date(sub.ends_at).toLocaleDateString("tr-TR")}` : ""}
                   </p>
                 </div>
                 <Select
                   value={sub.status}
                   onValueChange={(value) =>
-                    statusMutation.mutate({ id: sub.id, status: value as "active" | "suspended" | "pending" | "cancelled" })
+                    statusMutation.mutate({
+                      id: sub.id,
+                      status: value as "active" | "suspended" | "pending" | "cancelled",
+                    })
                   }
                 >
                   <SelectTrigger className="w-40">

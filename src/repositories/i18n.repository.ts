@@ -19,7 +19,10 @@ export const languagesRepository = {
     return data ?? [];
   },
   async setActive(code: string, isActive: boolean) {
-    const { error } = await supabase.from("languages").update({ is_active: isActive }).eq("code", code);
+    const { error } = await supabase
+      .from("languages")
+      .update({ is_active: isActive })
+      .eq("code", code);
     if (error) throw error;
   },
 };

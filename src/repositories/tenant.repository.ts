@@ -46,7 +46,9 @@ export const tenantRepository = {
   async slides(tenantId: string) {
     const { data, error } = await supabase
       .from("slides")
-      .select("id, image_url, eyebrow, title, description, button_label, button_href, button_target, sort_order")
+      .select(
+        "id, image_url, eyebrow, title, description, button_label, button_href, button_target, sort_order",
+      )
       .eq("tenant_id", tenantId)
       .order("sort_order");
     if (error) throw error;
@@ -78,7 +80,9 @@ export const tenantRepository = {
   async campaigns(tenantId: string) {
     const { data, error } = await supabase
       .from("campaigns")
-      .select("id, branch_id, title, slug, excerpt, description, image_url, badge, category, starts_at, ends_at, sort_order")
+      .select(
+        "id, branch_id, title, slug, excerpt, description, image_url, badge, category, starts_at, ends_at, sort_order",
+      )
       .eq("tenant_id", tenantId)
       .order("sort_order");
     if (error) throw error;
@@ -88,7 +92,9 @@ export const tenantRepository = {
   async posts(tenantId: string) {
     const { data, error } = await supabase
       .from("posts")
-      .select("id, title, slug, excerpt, content, image_url, badge, badge_position, view_count, published_at, category_id")
+      .select(
+        "id, title, slug, excerpt, content, image_url, badge, badge_position, view_count, published_at, category_id",
+      )
       .eq("tenant_id", tenantId)
       .order("published_at", { ascending: false });
     if (error) throw error;
