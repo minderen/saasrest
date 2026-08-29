@@ -18,7 +18,8 @@ function safeRedirect(value: unknown): string {
 }
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (search: Record<string, unknown>) => ({ redirect: safeRedirect(search["redirect"]) }),
+  validateSearch: (search: Record<string, unknown>): { redirect?: string } =>
+    search["redirect"] === undefined ? {} : { redirect: safeRedirect(search["redirect"]) },
   head: () => ({
     meta: [
       { title: "Panel girişi · QR Sofra" },
