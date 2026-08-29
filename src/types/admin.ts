@@ -15,7 +15,15 @@ export type AdminField = {
   options?: AdminFieldOption[];
   /** Dynamic option source resolved by the UI layer. */
   optionsFrom?:
-    "tenants" | "agents" | "plans" | "languages" | "menuCategories" | "profiles" | "roles";
+    | "tenants"
+    | "agents"
+    | "plans"
+    | "languages"
+    | "menuCategories"
+    | "profiles"
+    | "roles"
+    | "plugins";
+
   /** Slug target: auto-filled from this field when left empty. */
   slugFrom?: string;
   full?: boolean;

@@ -647,6 +647,64 @@ export const adminResources = {
     ],
     fields: [],
   },
+
+  products: {
+    key: "products",
+    title: "Ürünler",
+    description: "Marka ürünleri; plan ürün limiti veritabanı tarafında zorunlu kılınır.",
+    table: "products",
+    tenantScoped: true,
+    softDelete: true,
+    select:
+      "id, name, slug, category_id, price, currency, short_description, is_special, status, sort_order",
+    orderBy: "sort_order",
+    searchColumns: ["name"],
+    columns: [
+      { name: "name", label: "Ürün" },
+      {
+        name: "price",
+        label: "Fiyat",
+        format: (value, row) => formatMoney(Number(value ?? 0), String(row["currency"] ?? "TRY")),
+      },
+      { name: "status", label: "Durum" },
+      boolColumn("is_special", "Öne çıkan"),
+    ],
+    fields: [
+      { name: "name", label: "Ürün adı", type: "text", required: true },
+      { name: "slug", label: "Slug", type: "text", slugFrom: "name" },
+      { name: "category_id", label: "Kategori", type: "select", optionsFrom: "menuCategories" },
+      { name: "price", label: "Fiyat", type: "number", required: true },
+      { name: "currency", label: "Para birimi", type: "text", placeholder: "TRY" },
+      { name: "short_description", label: "Kısa açıklama", type: "textarea", full: true },
+      { name: "description", label: "Açıklama", type: "textarea", full: true },
+      { name: "image_url", label: "Görsel adresi", type: "text", full: true },
+      { name: "is_special", label: "Öne çıkan", type: "boolean" },
+      { name: "status", label: "Durum", type: "select", options: contentStatusOptions },
+      sortField,
+    ],
+  },
+
+  tenantPlugins: {
+    key: "tenantPlugins",
+    title: "Eklentiler",
+    description: "Markaya atanmış eklentiler; erişim plan ve yetkilerle sınırlıdır.",
+    table: "plugin_assignments",
+    tenantScoped: true,
+    select: "id, plugin_id, is_enabled, settings, created_at",
+    orderBy: "created_at",
+    ascending: false,
+    columns: [
+      { name: "plugin_id", label: "Eklenti" },
+      boolColumn("is_enabled", "Aktif"),
+      dateColumn("created_at", "Tarih"),
+    ],
+    fields: [
+      { name: "plugin_id", label: "Eklenti", type: "select", required: true, optionsFrom: "plugins" },
+      { name: "is_enabled", label: "Aktif", type: "boolean" },
+      { name: "settings", label: "Ayarlar (JSON)", type: "json", full: true },
+    ],
+  },
 } satisfies Record<string, AdminResource>;
+
 
 export type AdminResourceKey = keyof typeof adminResources;

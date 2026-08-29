@@ -45,6 +45,7 @@ export type PanelScope = "all" | "super" | "staff" | "tenant";
 export type PanelNavItem = {
   to:
     | "/panel"
+    | "/panel/agent"
     | "/panel/users"
     | "/panel/roles"
     | "/panel/permissions"
@@ -96,6 +97,7 @@ export const panelGroups: { key: PanelGroup; label: string }[] = [
 
 export const panelNav: PanelNavItem[] = [
   { to: "/panel", label: "Genel bakış", icon: LayoutDashboard, scope: "all", group: "overview" },
+  { to: "/panel/agent", label: "Acente paneli", icon: Building2, scope: "staff", group: "overview" },
 
   { to: "/panel/users", label: "Kullanıcılar", icon: Users, scope: "super", group: "access" },
   { to: "/panel/roles", label: "Roller", icon: UserCog, scope: "super", group: "access" },
