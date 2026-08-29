@@ -2741,6 +2741,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_manage_tenant: { Args: { _tenant_id: string }; Returns: boolean }
+      has_permission: { Args: { _key: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -2750,9 +2752,12 @@ export type Database = {
       }
       has_tenant_access: { Args: { _tenant_id: string }; Returns: boolean }
       increment_post_views: { Args: { _post_id: string }; Returns: undefined }
+      is_agent: { Args: never; Returns: boolean }
       is_super_admin: { Args: never; Returns: boolean }
       is_tenant_published: { Args: { _tenant_id: string }; Returns: boolean }
       my_agent_ids: { Args: never; Returns: string[] }
+      my_permissions: { Args: never; Returns: string[] }
+      my_tenant_ids: { Args: never; Returns: string[] }
     }
     Enums: {
       app_role: "super_admin" | "agent" | "tenant_owner" | "tenant_staff"
