@@ -1,35 +1,37 @@
 import { menuRepository } from "@/repositories/menu.repository";
+import type { CartLine, PlacedOrder } from "@/types/menu";
 import { orderSchema, type OrderInput } from "@/validators/order.validator";
 
-/**
- * Order business rules. Totals are recalculated here (never trusted from the
- * UI) before the repository persists the order.
- */
+/** Display-only total for the cart UI. The authoritative total comes from the DB. */
+export function cartTotal(lines: CartLine[]): number {
+  return lines.reduce((sum, line) => sum + line.unit_price * line.quantity, 0);
+}
+
+function friendlyError(error: unknown): Error {
+  const message =
+    typeof error === "object" && error && "message" in error
+      ? String((error as { message: unknown }).message)
+      : "Sipariş gönderilemedi. Lütfen tekrar deneyin.";
+  return new Error(message);
+}
+
 export const orderService = {
-  calculateTotal(items: OrderInput["items"]) {
-    return items.reduce((sum, item) => sum + item.unit_price * item.quantity, 0);
+  /** Validates the payload, then lets the database reprice and persist the order. */
+  async place(input: OrderInput): Promise<PlacedOrder> {
+    const parsed = orderSchema.parse(input);
+    try {
+      return await menuRepository.placeOrder(parsed);
+    } catch (error) {
+      throw friendlyError(error);
+    }
   },
 
-  async place(input: OrderInput) {
-    const parsed = orderSchema.parse(input);
-    return menuRepository.createOrder({
-      tenant_id: parsed.tenant_id,
-      branch_id: parsed.branch_id ?? null,
-      table_no: parsed.table_no ?? null,
-      customer_name: parsed.customer_name,
-      customer_phone: parsed.customer_phone,
-      note: parsed.note ?? null,
-      total: orderService.calculateTotal(parsed.items),
-      items: parsed.items.map((item) => ({
-        item_name: item.item_name,
-        unit_price: item.unit_price,
-        quantity: item.quantity,
-        product_id: item.product_id ?? null,
-        menu_id: item.menu_id ?? null,
-      })),
-    });
+  /** Maps in-memory cart lines to the reference-only order payload. */
+  toOrderItems(lines: CartLine[]): OrderInput["items"] {
+    return lines.map((line) => ({
+      product_id: line.product_id,
+      menu_id: line.menu_id,
+      quantity: line.quantity,
+    }));
   },
 };
-
-export type { OrderInput };
-export { orderSchema };
