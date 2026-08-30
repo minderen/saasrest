@@ -67,12 +67,17 @@ export const menuRepository = {
    */
   async placeOrder(input: {
     tenant_id: string;
-    branch_id?: string | null;
-    table_no?: string | null;
+    branch_id?: string | null | undefined;
+    table_no?: string | null | undefined;
     customer_name: string;
     customer_phone: string;
-    note?: string | null;
-    items: Array<{ product_id?: string | null; menu_id?: string | null; quantity: number; note?: string | null }>;
+    note?: string | null | undefined;
+    items: Array<{
+      product_id?: string | null | undefined;
+      menu_id?: string | null | undefined;
+      quantity: number;
+      note?: string | null | undefined;
+    }>;
   }): Promise<PlacedOrder> {
     const { data, error } = await supabase.rpc("place_order", {
       _tenant_id: input.tenant_id,
