@@ -1,15 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { MenuCategoryView, MenuPackageView, PlacedOrder, ProductView } from "@/types/menu";
 
-const PRODUCT_SELECT =
-  "id, category_id, name, slug, short_description, description, price, currency, image_url, badges, is_special, sort_order, " +
-  "product_features(id, label, value, icon, show_on_card, sort_order), " +
-  "product_options(id, group_label, name, price_delta, is_default, is_active, sort_order)";
-
-const MENU_SELECT =
-  "id, category_id, name, slug, short_description, description, price, currency, image_url, badges, is_special, sort_order, " +
-  "menu_products(quantity, sort_order, products(id, name, image_url, price))";
-
 export const menuRepository = {
   async categories(tenantId: string): Promise<MenuCategoryView[]> {
     const { data, error } = await supabase
@@ -25,7 +16,9 @@ export const menuRepository = {
   async products(tenantId: string): Promise<ProductView[]> {
     const { data, error } = await supabase
       .from("products")
-      .select(PRODUCT_SELECT)
+      .select(
+        "id, category_id, name, slug, short_description, description, price, currency, image_url, badges, is_special, sort_order, product_features(id, label, value, icon, show_on_card, sort_order), product_options(id, group_label, name, price_delta, is_default, is_active, sort_order)",
+      )
       .eq("tenant_id", tenantId)
       .eq("status", "published")
       .is("deleted_at", null)
@@ -33,8 +26,8 @@ export const menuRepository = {
     if (error) throw error;
     return (data ?? []).map((row) => ({
       ...row,
-      product_features: [...(row.product_features ?? [])].sort((a, b) => a.sort_order - b.sort_order),
-      product_options: (row.product_options ?? [])
+      product_features: [...row.product_features].sort((a, b) => a.sort_order - b.sort_order),
+      product_options: row.product_options
         .filter((option) => option.is_active)
         .sort((a, b) => a.sort_order - b.sort_order),
     })) as ProductView[];
@@ -43,7 +36,9 @@ export const menuRepository = {
   async menus(tenantId: string): Promise<MenuPackageView[]> {
     const { data, error } = await supabase
       .from("menus")
-      .select(MENU_SELECT)
+      .select(
+        "id, category_id, name, slug, short_description, description, price, currency, image_url, badges, is_special, sort_order, menu_products(quantity, sort_order, products(id, name, image_url, price))",
+      )
       .eq("tenant_id", tenantId)
       .eq("status", "published")
       .is("deleted_at", null)
@@ -51,7 +46,7 @@ export const menuRepository = {
     if (error) throw error;
     return (data ?? []).map((row) => ({
       ...row,
-      menu_products: [...(row.menu_products ?? [])].sort((a, b) => a.sort_order - b.sort_order),
+      menu_products: [...row.menu_products].sort((a, b) => a.sort_order - b.sort_order),
     })) as MenuPackageView[];
   },
 
@@ -89,9 +84,9 @@ export const menuRepository = {
       })),
       _customer_name: input.customer_name,
       _customer_phone: input.customer_phone,
-      _branch_id: input.branch_id ?? null,
-      _table_no: input.table_no ?? null,
-      _note: input.note ?? null,
+      ...(input.branch_id ? { _branch_id: input.branch_id } : {}),
+      ...(input.table_no ? { _table_no: input.table_no } : {}),
+      ...(input.note ? { _note: input.note } : {}),
     });
     if (error) throw error;
     const order = Array.isArray(data) ? data[0] : data;
@@ -103,9 +98,7 @@ export const menuRepository = {
     const { data, error } = await supabase
       .from("orders")
       .select(
-        "id, code, status, total, currency, table_no, customer_name, customer_phone, note, created_at, " +
-          "order_items(id, item_name, unit_price, quantity, note), " +
-          "order_status_history(id, status, created_at)",
+        "id, code, status, total, currency, table_no, customer_name, customer_phone, note, created_at, order_items(id, item_name, unit_price, quantity, note), order_status_history(id, status, created_at)",
       )
       .eq("tenant_id", tenantId)
       .eq("id", orderId)
